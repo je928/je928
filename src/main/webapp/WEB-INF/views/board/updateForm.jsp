@@ -20,7 +20,9 @@ function chkword(obj, maxByte) {
         oneChar = strValue.charAt(i);
         if (escape(oneChar).length > 4) {
             totalByte += 3;
-        } else {
+        }else if(escape(oneChar) == '%0A') {
+        	totalByte += 2;
+        }else {
             totalByte++;
         }
 
@@ -54,7 +56,9 @@ function chkword2(obj, maxByte) {
         oneChar = strValue.charAt(i);
         if (escape(oneChar).length > 4) {
             totalByte += 3;
-        } else {
+        }else if(escape(oneChar) == '%0A') {
+        	totalByte += 2;
+        }else {
             totalByte++;
         }
 
@@ -69,7 +73,7 @@ function chkword2(obj, maxByte) {
     	alert("제목은 한글 기준 100자 까지만 쓸 수 있습니다.");
         str2 = strValue.substr(0, len);
         obj.value = str2;
-        chkword(obj, 300);
+        chkword2(obj, 300);
     }
 }
 </script>

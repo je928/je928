@@ -192,7 +192,7 @@
 									</div>
 								</div>
 								<blockquote style="word-break:break-word;">
-									<p> ${re.re_content} </p>
+									<p style="white-space:pre-wrap; word-break:break-word;"> ${re.re_content} </p>
 								</blockquote>
 								<div class="up">
 									<blockquote>
