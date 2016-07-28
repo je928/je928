@@ -1,0 +1,255 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../module/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function rpSubmit(number) {
+		if(number == null || number == "" || number == "null") {
+			if(confirm("로그인 하시겠습니까?")) {
+				location.href="login.do";
+			} else {
+				return false;
+			}
+		}else {
+			return true;
+		}
+		return false;
+	}
+	
+	function deleteRpChk(re_no, brd_no, pageNum) {
+		if(confirm("정말 삭제하시겠습니까?")) {
+			location.href="deleteReply.do?re_no="+re_no+"&brd_no="+brd_no+"&pageNum="+pageNum;
+		}else {
+			return;
+		}
+	}
+	
+	function delChk() {
+		var replyCount = ${replyCount};
+		var refTotal = ${refTotal};
+		if(replyCount > 0 ) {
+			alert("이 글과 관련된 댓글이 존재하므로 삭제 할 수 없습니다.");
+		}else {
+			if(refTotal > 0) {
+				alert("이 글과 관련된 답변글이 존재하므로 삭제 할 수 없습니다.");
+			}else {
+				location.href="deleteForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}";				
+			}
+		}
+	}
+	
+	$(document).ready(function(){
+		$(".up").hide();
+		$(".btnupup").hide();
+		$('.btnup').click(function(){
+			$("form").each(function() {
+				this.reset();
+			});
+			$(".up").hide();
+			$('.btnup').show();
+			$(".btnupup").hide();
+			$(this).parent().parent().parent().nextAll(".up").toggle("slow");
+			$(this).hide();
+			$(this).next().show();
+			var upup_content = $(this).parent().parent().parent().nextAll(".up").find("textarea").val().length;
+			$(this).parent().parent().parent().nextAll(".up").find("textarea").next().next().text(upup_content + " / 300 자");
+			$(this).parent().parent().parent().nextAll(".up").find("textarea").keyup(function() {
+				var up_content = $(this).val().length;
+				$(this).next().next().text(up_content + " / 300 자");
+				if(up_content >= 300){
+					alert("300자까지 입력할 수 있습니다.");
+				}
+			});
+		});
+		$('.btnupup').click(function(){
+			$(this).parent().parent().parent().nextAll(".up").toggle("slow");
+			$(this).hide();
+			$(this).prev().show();
+		});
+	});
+	
+	function textCheck() {
+		var counter = document.getElementById("counter");
+		var content = document.getElementById("re_content");
+		counter.innerHTML = 
+			content.value.length + "/" + content.maxLength + "자";
+		if(content.value.length >= content.maxLength){
+			alert(content.maxLength + "자까지 입력할 수 있습니다.");
+		}
+	}
+	
+</script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-offset-17">
+				<h3 class="page-header">
+					Board <small>게시판</small>
+				</h3>
+				<ol class="breadcrumb">
+					<li><a href="main.do">Home</a></li>
+					<li class="active">Board</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="col-lg-9 col-md-offset-18">
+			<div class="panel panel-default panel-table">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col col-xs-6">
+						</div>
+						<div class="col col-xs-6 text-right">
+							<a href="board.do?pageNum=${pageNum}&searchType=${searchType}&searchTxt=${searchTxt}" class="btn btn-sm btn-default">목록<em class="fa fa-list-ul"></em></a>
+							<c:if test="${sessionScope.no != null}">
+								<a href="writeForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}" class="btn btn-sm btn-default">답변<em class="fa fa-comment-o"></em></a>
+							</c:if>
+							<c:if test="${sessionScope.no == board.m_no}">
+								<a href="updateForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}" class="btn btn-sm btn-default">수정<em class="fa fa-pencil"></em></a>
+								<a href="javascript:delChk()" class="btn btn-sm btn-danger">삭제<em class="fa fa-trash"></em></a>
+							</c:if>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body2">
+					<table class="table table-striped table-bordered table-list" style="table-layout:fixed;">
+						<c:if test="${not empty board }">
+							<tr>
+								<th width="20%">제목</th>
+								<td class="text-left" style="word-break:break-word;">${board.brd_subject }</td>
+							</tr>
+							<tr>
+								<th>작성자</th>
+								<td class="text-left">${board.m_nick}</td>
+							</tr>
+							<tr>
+								<th>조회수</th>
+								<td class="text-left">${board.brd_readcount}</td>
+							</tr>
+							<c:if test="${null eq board.brd_update_date}">
+								<tr>
+									<th>작성일</th>
+									<td class="text-left">${board.brd_reg_date}</td>
+								</tr>
+							</c:if>
+							<c:if test="${null ne board.brd_update_date}">
+								<tr>
+									<th>작성일</th>
+									<td class="text-left">${board.brd_reg_date}</td>
+								</tr>
+								<tr>
+									<th>최근 수정일</th>
+									<td class="text-left">${board.brd_update_date}</td>
+								</tr>
+							</c:if>
+							<tr>
+								<td colspan="2" style="white-space:pre-wrap; word-break:break-word;"><div class="text-left" style="margin: 20px;">${board.brd_content}</div></td>
+							</tr>
+						</c:if>
+						<c:if test="${empty board }">
+							<tr>
+								<td colspan="2">데이터가 없습니다.</td>
+							</tr>
+						</c:if>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="col-lg-9 col-md-offset-18">
+			<div class="panel panel-default panel-table">
+				<div class="container re_top">
+					<div class="row">
+						<h5 class="re_header">
+							<small style="color: #747474; font-weight: 900; font-size: 22px;">${replyCount} Comments:</small>
+						</h5>
+						<c:if test="${not empty reList}">
+						<c:forEach var="re" items="${reList}">
+						<div class="replym_w">
+							<div class="testimonials">
+								<div class="carousel-info">
+									<div class="pull-left">
+										<span class="testimonials-name">${re.m_nick}</span>
+										<span class="testimonials-post">${re.re_reg_date}</span>
+									</div>
+									<div class="pull-right">
+										<span class="testimonials-menu">
+										<c:if test="${re.m_no == sessionScope.no}">
+										<a class="a_link btnup">수정</a>
+										<a class="red_link btnupup">수정취소</a>
+										 | 											
+										<a class="a_link" onclick="deleteRpChk(${re.re_no},${board.brd_no},${pageNum})">삭제</a>
+										</c:if>
+										</span>
+									</div>
+								</div>
+								<blockquote style="word-break:break-word;">
+									<p> ${re.re_content} </p>
+								</blockquote>
+								<div class="up">
+									<blockquote>
+										<form action="updateReply.do" id="upfrm" name="upfrm" onsubmit="return rpSubmit(${sessionScope.no})">
+											<input type="hidden" name="no" value="${sessionScope.no}">
+											<input type="hidden" name="re_no" value="${re.re_no}">											
+											<input type="hidden" name="brd_no" value="${board.brd_no}">
+											<input type="hidden" name="pageNum" value="${pageNum}">
+										<c:if test="${sessionScope.no > 0}">
+											<textarea style="resuze: none; border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" maxlength="300" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
+											<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="수정">
+											<span id="counter2" style="margin-left: 563px;"> ${re.relength} / 300 자</span>
+										</c:if>
+									</form>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+						</c:forEach>
+						</c:if>
+						<c:if test="${empty reList}">
+						<div class="replym_w">
+							<div class="testimonials">
+								<blockquote>
+								<p>
+									등록된 댓글이 없습니다.
+								</p>
+								</blockquote>
+							</div>
+						</div>
+						</c:if>
+					</div>
+				</div>
+				
+				<div class="container re_bottom">
+					<div class="row">
+						<div class="replym_w">
+							<form action="writeReply.do" name="frm" onsubmit="return rpSubmit(${sessionScope.no})">
+							<input type="hidden" name="m_no" value="${sessionScope.no}">
+							<input type="hidden" name="brd_no" value="${board.brd_no}">
+							<input type="hidden" name="pageNum" value="${pageNum}">
+							<c:if test="${sessionScope.no == null}">					
+							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" maxlength="300" id="re_content" name="re_content" placeholder="로그인이 필요한 서비스입니다. 로그인 하시겠습니까?" onclick="return rpSubmit(${sessionScope.no})"></textarea>&nbsp;
+							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
+							</c:if>
+							<c:if test="${sessionScope.no > 0}">					
+							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" maxlength="300" onkeyup="textCheck()" id="re_content" name="re_content" placeholder="댓글을 입력해 주세요." required></textarea>&nbsp;
+							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
+							<span id="counter" style="margin-left: 610px;">0/300 자</span>
+							</c:if>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
