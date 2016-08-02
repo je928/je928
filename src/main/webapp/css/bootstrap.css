@@ -9032,6 +9032,15 @@ h4 {
 	background: #e51c23;
 }
 
+.new {
+	border-radius: 2em;
+	padding: 0em 0.3em 0.2em 0.3em;
+	font-size: 0.85em;
+	font-weight: 900;
+	color: white;
+	background: #e51c23;
+}
+
 /* ----------------------------------------------------------------------- */
 /* home.jsp */
 

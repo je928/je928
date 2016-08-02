@@ -23,6 +23,7 @@
 	    <result property="searchTxt" column="searchTxt"/>
 	    <result property="replycount" column="replycount"/>
 	    <result property="byteSize" column="byteSize"/>
+	    <result property="newday" column="newday"/>
 	</resultMap>
 	
 	<select id="boardTotal" parameterType="board" resultType="Integer">
@@ -104,6 +105,10 @@
 	
 	<select id="refTotal" parameterType="Integer" resultType="Integer">
 		select count(*) from  bow_board b, (select ref , re_level from bow_board where brd_no = #{brd_no}) a where b.ref=a.ref and a.re_level+1 = b.re_level
+	</select>
+	
+	<select id="newday" resultType="java.sql.Date">
+		select sysdate as newday from dual
 	</select>
 	
 </mapper>

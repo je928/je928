@@ -59,7 +59,8 @@
 						<thead>
 							<tr>
 								<th width="5%"></th>
-								<th width="35%">제목</th>
+								<th width="30%">제목</th>
+								<th width="5%" style="border-left: hidden;"></th>								
 								<th width="12%">글쓴이</th>
 								<th width="9%">작성일</th>
 								<th width="6%">조회수</th>
@@ -72,6 +73,10 @@
 							<td>${no }</td>
 							<td class="text-left">
 							<div class="target">
+							<%-- <c:set var="day" value="${bs.newday()}"></c:set>
+							<c:if test="${brd.brd_reg_date eq day}">
+								<span class="new">N</span>
+							</c:if> --%>
 							<c:if test="${brd.re_step>0}">
 								<img alt="" src="images/level.gif" width="${brd.re_level*10}">
 								<img alt="" src="images/re.gif">
@@ -80,8 +85,10 @@
 									${brd.brd_subject } 
 								</a>
 							</div>
+							</td>
+							<td style="border-left: hidden;">
 								<c:if test="${brd.replycount > 0}">
-								[<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">${brd.replycount}</a>]
+									[<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">${brd.replycount}</a>]
 								</c:if>
 							</td>
 							<td>${brd.m_nick}</td>
@@ -92,7 +99,7 @@
 						</c:forEach>
 						<c:if test="${empty list}">
 							<tr>
-								<td colspan="5">데이터가 없습니다.</td>
+								<td colspan="6">데이터가 없습니다.</td>
 							</tr>
 						</c:if>
 						</tbody>
@@ -119,7 +126,7 @@
 							</ul>
 							<ul class="pagination">
 								<c:if test="${pb.totalPage > pb.endPage}">
-								<li><a href="javascript:locate(${pb.startPage+pb.pagePerBlock})">»</a></li>
+								<li><a href="javascript:locate(${pb.nowPage+1})">»</a></li>
 								<li><a href="javascript:locate(${pb.totalPage})">»»</a></li>
 								</c:if>
 							</ul>
@@ -131,41 +138,44 @@
 	</div>
 
 	<div align="center">
-	<div class="navbar-form">
-		<div class="form-group">
-			<select class="form-control input-lg" id="searchType">
-				<c:if test="${searchType eq 'all'}">
-					<option value="all" selected="selected">제목 + 내용</option>
-				</c:if>
-				<c:if test="${searchType ne 'all'}">
-					<option value="all">제목 + 내용</option>
-				</c:if>
+		<div class="navbar-form">
+			<div class="form-group">
+				<select class="form-control input-lg" id="searchType">
+					<c:if test="${searchType eq 'all'}">
+						<option value="all" selected="selected">제목 + 내용</option>
+					</c:if>
+					<c:if test="${searchType ne 'all'}">
+						<option value="all">제목 + 내용</option>
+					</c:if>
+						
+					<c:if test="${searchType eq 'brd_subject'}">
+						<option value="brd_subject" selected="selected">제목</option>
+					</c:if>
+					<c:if test="${searchType ne 'brd_subject'}">
+						<option value="brd_subject">제목</option>
+					</c:if>
 					
-				<c:if test="${searchType eq 'brd_subject'}">
-					<option value="brd_subject" selected="selected">제목</option>
-				</c:if>
-				<c:if test="${searchType ne 'brd_subject'}">
-					<option value="brd_subject">제목</option>
-				</c:if>
-				
-				<c:if test="${searchType eq 'brd_content'}">	
-					<option value="brd_content" selected="selected">내용</option>
-				</c:if>
-				<c:if test="${searchType ne 'brd_content'}">
-					<option value="brd_content">내용</option>
-				</c:if>
-					
-				<c:if test="${searchType eq 'm_nick'}">
-					<option value="m_nick" selected="selected">글쓴이</option>
-				</c:if>
-				<c:if test="${searchType ne 'm_nick'}">
-					<option value="m_nick">글쓴이</option>
-				</c:if>
-			</select>			
-			<input type="text" id="searchTxt" class="form-control" placeholder="Search" value="${searchTxt}">
+					<c:if test="${searchType eq 'brd_content'}">	
+						<option value="brd_content" selected="selected">내용</option>
+					</c:if>
+					<c:if test="${searchType ne 'brd_content'}">
+						<option value="brd_content">내용</option>
+					</c:if>
+						
+					<c:if test="${searchType eq 'm_nick'}">
+						<option value="m_nick" selected="selected">글쓴이</option>
+					</c:if>
+					<c:if test="${searchType ne 'm_nick'}">
+						<option value="m_nick">글쓴이</option>
+					</c:if>
+				</select>
+				<input type="text" id="searchTxt" class="form-control" placeholder="Search" value="${searchTxt}">
 			</div>
 			<button type="submit" class="btn btn-default" onclick="locate(1)"><i class="glyphicon fa-1x glyphicon-search"></i></button>
 		</div>
+		<c:if test="${searchTxt != ''}">
+			<div> <a href="board.do">전체보기</a> </div>
+		</c:if>
 	</div>
       
 </body>

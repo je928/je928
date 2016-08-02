@@ -55,15 +55,9 @@
 			$(this).parent().parent().parent().nextAll(".up").toggle("slow");
 			$(this).hide();
 			$(this).next().show();
+			$(this).parent().parent().parent().nextAll(".up").find("textarea").focus();
 			var upup_content = $(this).parent().parent().parent().nextAll(".up").find("textarea").val().length;
 			$(this).parent().parent().parent().nextAll(".up").find("textarea").next().next().text(upup_content + " / 300 자");
-			$(this).parent().parent().parent().nextAll(".up").find("textarea").keyup(function() {
-				var up_content = $(this).val().length;
-				$(this).next().next().text(up_content + " / 300 자");
-				if(up_content >= 300){
-					alert("300자까지 입력할 수 있습니다.");
-				}
-			});
 		});
 		$('.btnupup').click(function(){
 			$(this).parent().parent().parent().nextAll(".up").toggle("slow");
@@ -72,16 +66,73 @@
 		});
 	});
 	
-	function textCheck() {
-		var counter = document.getElementById("counter");
-		var content = document.getElementById("re_content");
-		counter.innerHTML = 
-			content.value.length + "/" + content.maxLength + "자";
-		if(content.value.length >= content.maxLength){
-			alert(content.maxLength + "자까지 입력할 수 있습니다.");
-		}
+	function re_contentChk(obj, maxLen) {
+	    var strValue = obj.value;
+	    var strLen = strValue.length;
+	    var totalLen = 0;
+	    var len = 0;
+	    var oneChar = "";
+	    var str2 = "";
+	
+	    for (var i = 0; i < strLen; i++) {
+	        oneChar = strValue.charAt(i);
+	        if (escape(oneChar) == '%0A') {
+	        	totalLen += 1;
+	        }else {
+	        	totalLen++;
+	        }
+	
+	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+	        if (totalLen <= maxLen) {
+	            len = i + 1;
+	        }
+	    }
+		
+	    var counter = document.getElementById("counter");
+		counter.innerHTML = totalLen + " / " + maxLen + " 자";
+	    
+	    // 넘어가는 글자는 자른다.
+	    if (totalLen > maxLen) {
+	        alert(maxLen + "자까지만 입력할 수 있습니다.");
+	        str2 = strValue.substr(0, len);
+	        obj.value = str2;
+	        re_contentChk(obj, maxLen);
+	    }
 	}
 	
+	function up_contentChk(obj, maxLen) {
+	    var strValue = obj.value;
+	    var strLen = strValue.length;
+	    var totalLen = 0;
+	    var len = 0;
+	    var oneChar = "";
+	    var str2 = "";
+	
+	    for (var i = 0; i < strLen; i++) {
+	        oneChar = strValue.charAt(i);
+	        if (escape(oneChar) == '%0A') {
+	        	totalLen += 1;
+	        }else {
+	        	totalLen++;
+	        }
+	
+	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+	        if (totalLen <= maxLen) {
+	            len = i + 1;
+	        }
+	    }
+	    
+	    var counter3 = obj.nextSibling.nextSibling.nextSibling.nextSibling;
+	    counter3.innerHTML = totalLen + " / " + maxLen + " 자";
+
+	    // 넘어가는 글자는 자른다.
+	    if (totalLen > maxLen) {
+	        alert(maxLen + "자까지만 입력할 수 있습니다.");
+	        str2 = strValue.substr(0, len);
+	        obj.value = str2;
+	        up_contentChk(obj, maxLen);
+	    }
+	}
 </script>
 </head>
 <body>
@@ -202,9 +253,9 @@
 											<input type="hidden" name="brd_no" value="${board.brd_no}">
 											<input type="hidden" name="pageNum" value="${pageNum}">
 										<c:if test="${sessionScope.no > 0}">
-											<textarea style="resuze: none; border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" maxlength="300" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
+											<textarea style="resuze: none; border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" oninput="up_contentChk(this, 300)" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
 											<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="수정">
-											<span id="counter2" style="margin-left: 563px;"> ${re.relength} / 300 자</span>
+											<div class="text-right" style="margin-right: 105px;" id="counter2"></div>
 										</c:if>
 									</form>
 									</blockquote>
@@ -239,9 +290,9 @@
 							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
 							</c:if>
 							<c:if test="${sessionScope.no > 0}">					
-							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" maxlength="300" onkeyup="textCheck()" id="re_content" name="re_content" placeholder="댓글을 입력해 주세요." required></textarea>&nbsp;
+							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" oninput="re_contentChk(this, 300)" id="re_content" name="re_content" placeholder="댓글을 입력해 주세요." required></textarea>&nbsp;
 							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
-							<span id="counter" style="margin-left: 610px;">0/300 자</span>
+							<div class="text-right"><span id="counter" style="margin-right: 95px;">0 / 300 자</span></div>
 							</c:if>
 							</form>
 						</div>

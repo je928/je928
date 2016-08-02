@@ -1,5 +1,6 @@
 package bowtech.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import bowtech.model.Board;
@@ -25,5 +26,6 @@ public interface BoardDao {
 	int deleteReply(int crNo);
 	/*BoardReply replyOne(int cr_no);*/
 	int refTotal(int brd_no);
+	Date newday();
 	
 }

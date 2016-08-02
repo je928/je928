@@ -19,6 +19,7 @@ public class Board {
 	private String m_passwd;
 	private int replycount;
 	private int byteSize;
+	private Date newday;
 
 	// 조회용
 	private int startRow;
@@ -177,6 +178,14 @@ public class Board {
 
 	public void setByteSize(int byteSize) {
 		this.byteSize = byteSize;
+	}
+	
+	public Date getNewday() {
+		return newday;
+	}
+
+	public void setNewday(Date newday) {
+		this.newday = newday;
 	}
 
 }

@@ -30,10 +30,10 @@ public class BoardController {
 			pageNum = "1";
 		}
 		
-		if(searchType == null || searchType.equals("null") || searchType.equals("")){
+		if(searchType == null){
 			searchType = "all";
 		}
-		if(searchTxt == null || searchTxt.equals("null")){
+		if(searchTxt == null){
 			searchTxt = "";
 		}
 		
@@ -55,19 +55,19 @@ public class BoardController {
 		
 		if (board.getSearchType() != null) {
 			model.addAttribute("searchType", board.getSearchType());
-			model.addAttribute("searchTxt",board.getSearchTxt());
+			model.addAttribute("searchTxt", board.getSearchTxt());
 		}
-
+		model.addAttribute("bs", bs);
 		model.addAttribute("pgm", "../board/list.jsp");
 		return "module/main";
 	}
 	
 	@RequestMapping(value="view")
 	public String view(int brd_no, String pageNum, String searchType, String searchTxt, Model model, HttpSession session) {
-		if(searchType == null || searchType.equals("null") || searchType.equals("")){
+		if(searchType == null){
 			searchType = "all";
 		}
-		if(searchTxt == null || searchTxt.equals("null")){
+		if(searchTxt == null){
 			searchTxt = "";
 		}
 		bs.boardHit(brd_no);
@@ -79,7 +79,7 @@ public class BoardController {
 		board.setSearchTxt(searchTxt);
 		if (board.getSearchType() != null) {
 			model.addAttribute("searchType", board.getSearchType());
-			model.addAttribute("searchTxt",board.getSearchTxt());
+			model.addAttribute("searchTxt", board.getSearchTxt());
 		}
 		model.addAttribute("board", board);
 		model.addAttribute("pageNum", pageNum);

@@ -1,5 +1,6 @@
 package bowtech.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,10 @@ public class BoardServiceImpl implements BoardService {
 	
 	public int refTotal(int brd_no) {
 		return bd.refTotal(brd_no);
+	}
+	
+	public Date newday() {
+		return bd.newday();
 	}
 
 }

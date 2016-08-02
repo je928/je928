@@ -29,7 +29,7 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 
-	<!-- listener, root-context에 정의 되어 있는 것들을 모든 서블릿과 필터가 공유할 수 있게 해준다. -->
+	<!-- listener, DispatcherServlet의 부모, root-context에 정의 되어 있는 것들을 모든 서블릿과 필터가 공유할 수 있게 해준다. -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -44,7 +44,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<servlet-mapping> <!-- appServlet에 대한 url-pattern을 정의 -->
+	<servlet-mapping> <!-- appServlet에 대한 url-pattern을 정의, *.do로 매핑 -->
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>

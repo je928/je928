@@ -1,5 +1,6 @@
 package bowtech.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -146,6 +147,16 @@ public class BoardDaoImpl implements BoardDao {
 			System.out.println(e.getMessage());
 		}
 		return total;
+	}
+
+	public Date newday() {
+		Date newday = null;
+		try {
+			newday = session.selectOne("board.newday");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return newday;
 	}
 
 }
