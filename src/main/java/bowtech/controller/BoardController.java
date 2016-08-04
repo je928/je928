@@ -86,6 +86,7 @@ public class BoardController {
 		model.addAttribute("reList", reList);
 		model.addAttribute("replyCount", replyCount);
 		model.addAttribute("refTotal", refTotal);
+		model.addAttribute("bs", bs);
 		model.addAttribute("pgm", "../board/view.jsp");
 		return "module/main";
 	}

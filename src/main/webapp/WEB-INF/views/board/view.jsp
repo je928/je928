@@ -158,7 +158,8 @@
 						</div>
 						<div class="col col-xs-6 text-right">
 							<a href="board.do?pageNum=${pageNum}&searchType=${searchType}&searchTxt=${searchTxt}" class="btn btn-sm btn-default">목록<em class="fa fa-list-ul"></em></a>
-							<c:if test="${sessionScope.no != null}">
+							<c:set var="refLimit" value="${bs.refLimit(board.ref)}"></c:set>
+							<c:if test="${sessionScope.no != null && board.re_level == 0 && refLimit < 6}">
 								<a href="writeForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}" class="btn btn-sm btn-default">답변<em class="fa fa-comment-o"></em></a>
 							</c:if>
 							<c:if test="${sessionScope.no == board.m_no}">
@@ -173,7 +174,7 @@
 						<c:if test="${not empty board }">
 							<tr>
 								<th width="20%">제목</th>
-								<td class="text-left" style="word-break:break-word;">${board.brd_subject }</td>
+								<td class="text-left" style="word-wrap:break-word;">${board.brd_subject }</td>
 							</tr>
 							<tr>
 								<th>작성자</th>
@@ -200,7 +201,7 @@
 								</tr>
 							</c:if>
 							<tr>
-								<td colspan="2" style="white-space:pre-wrap; word-break:break-word;"><div class="text-left" style="margin: 20px;">${board.brd_content}</div></td>
+								<td colspan="2" style="white-space:pre-wrap; word-wrap:break-word;"><div class="text-left" style="margin: 20px;">${board.brd_content}</div></td>
 							</tr>
 						</c:if>
 						<c:if test="${empty board }">
@@ -243,7 +244,7 @@
 									</div>
 								</div>
 								<blockquote style="word-break:break-word;">
-									<p style="white-space:pre-wrap; word-break:break-word;"> ${re.re_content} </p>
+									<p style="white-space:pre-wrap; word-wrap:break-word;"> ${re.re_content} </p>
 								</blockquote>
 								<div class="up">
 									<blockquote>

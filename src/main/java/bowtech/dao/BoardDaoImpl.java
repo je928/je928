@@ -159,4 +159,14 @@ public class BoardDaoImpl implements BoardDao {
 		return newday;
 	}
 
+	public int refLimit(int ref) {
+		int total = 0;
+		try {
+			total = session.selectOne("board.refLimit", ref);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return total;
+	}
+
 }

@@ -20,6 +20,8 @@ public class Board {
 	private int replycount;
 	private int byteSize;
 	private Date newday;
+	private int sublength;
+	private int reflimit;
 
 	// 조회용
 	private int startRow;
@@ -187,5 +189,22 @@ public class Board {
 	public void setNewday(Date newday) {
 		this.newday = newday;
 	}
+	
+	public int getSublength() {
+		return sublength;
+	}
+
+	public void setSublength(int sublength) {
+		this.sublength = sublength;
+	}
+	
+	public int getReflimit() {
+		return reflimit;
+	}
+
+	public void setReflimit(int reflimit) {
+		this.reflimit = reflimit;
+	}
+
 
 }

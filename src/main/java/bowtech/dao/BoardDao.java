@@ -27,5 +27,6 @@ public interface BoardDao {
 	/*BoardReply replyOne(int cr_no);*/
 	int refTotal(int brd_no);
 	Date newday();
+	int refLimit(int ref);
 	
 }

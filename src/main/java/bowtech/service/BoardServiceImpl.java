@@ -93,4 +93,8 @@ public class BoardServiceImpl implements BoardService {
 		return bd.newday();
 	}
 
+	public int refLimit(int ref) {
+		return bd.refLimit(ref);
+	}
+
 }

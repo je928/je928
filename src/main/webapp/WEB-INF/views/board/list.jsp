@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
+<!-- <style type="text/css">
 .target {
 	display: inline-block;
     width: 380px;
@@ -13,7 +13,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-</style>
+</style> -->
 <script type="text/javascript">
 	function locate(pageNum){
 		var searchType = document.getElementById("searchType");
@@ -60,7 +60,6 @@
 							<tr>
 								<th width="5%"></th>
 								<th width="30%">제목</th>
-								<th width="5%" style="border-left: hidden;"></th>								
 								<th width="12%">글쓴이</th>
 								<th width="9%">작성일</th>
 								<th width="6%">조회수</th>
@@ -71,8 +70,8 @@
 						<c:forEach var="brd" items="${list}">
 						<tr>
 							<td>${no }</td>
+			<!-- ***************************** 제목 *****************************  -->
 							<td class="text-left">
-							<div class="target">
 							<%-- <c:set var="day" value="${bs.newday()}"></c:set>
 							<c:if test="${brd.brd_reg_date eq day}">
 								<span class="new">N</span>
@@ -80,17 +79,37 @@
 							<c:if test="${brd.re_step>0}">
 								<img alt="" src="images/level.gif" width="${brd.re_level*10}">
 								<img alt="" src="images/re.gif">
-							</c:if>
+								<c:if test="${brd.sublength > 25}">
 								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
-									${brd.brd_subject } 
+									<c:out value="${fn:substring(brd.brd_subject,0,25)}"/>...
 								</a>
-							</div>
-							</td>
-							<td style="border-left: hidden;">
-								<c:if test="${brd.replycount > 0}">
-									[<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">${brd.replycount}</a>]
 								</c:if>
+								<c:if test="${brd.sublength < 25}">
+								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
+									${brd.brd_subject}
+								</a>
+								</c:if>
+								<c:if test="${brd.replycount > 0}">
+								<font style="font-weight: 900; color: #2196f3;">[${brd.replycount}]</font>
+								</c:if>
+							</c:if>
+							<c:if test="${brd.re_step==0}">
+								<c:if test="${brd.sublength > 29}">
+								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
+									<c:out value="${fn:substring(brd.brd_subject,0,29)}"/>...
+								</a>
+								</c:if>
+								<c:if test="${brd.sublength < 29}">
+								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
+									${brd.brd_subject}
+								</a>
+								</c:if>
+								<c:if test="${brd.replycount > 0}">
+								<font style="font-weight: 900; color: #2196f3;">[${brd.replycount}]</font>
+								</c:if>
+							</c:if>
 							</td>
+			<!-- ***************************** 제목 *****************************  -->
 							<td>${brd.m_nick}</td>
 							<td>${brd.brd_reg_date}</td>
 							<td>${brd.brd_readcount}</td>
@@ -99,7 +118,7 @@
 						</c:forEach>
 						<c:if test="${empty list}">
 							<tr>
-								<td colspan="6">데이터가 없습니다.</td>
+								<td colspan="5">데이터가 없습니다.</td>
 							</tr>
 						</c:if>
 						</tbody>
@@ -174,7 +193,7 @@
 			<button type="submit" class="btn btn-default" onclick="locate(1)"><i class="glyphicon fa-1x glyphicon-search"></i></button>
 		</div>
 		<c:if test="${searchTxt != ''}">
-			<div> <a href="board.do">전체보기</a> </div>
+			<div> <a href="board.do" style="text-decoration: underline;">목록</a> </div>
 		</c:if>
 	</div>
       
