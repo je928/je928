@@ -110,7 +110,6 @@
 			frm.brd_content.focus();
 			return false;
 		}
-		
 		return true;
 	}
 </script>
