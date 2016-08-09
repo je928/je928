@@ -71,6 +71,7 @@
 						<tr>
 							<td>${no }</td>
 			<!-- ***************************** 제목 *****************************  -->
+							<c:if test="${brd.brd_del_yn == 'n'}">
 							<td class="text-left">
 							<%-- <c:set var="day" value="${bs.newday()}"></c:set>
 							<c:if test="${brd.brd_reg_date eq day}">
@@ -113,6 +114,10 @@
 							<td>${brd.m_nick}</td>
 							<td>${brd.brd_reg_date}</td>
 							<td>${brd.brd_readcount}</td>
+							</c:if>
+							<c:if test="${brd.brd_del_yn == 'y'}">
+							<td colspan="4" class="text-left"> 이 글은 작성자에 의해서 삭제되었습니다. </td>
+							</c:if>
 						</tr>
 						<c:set var="no" value="${no-1}"></c:set>
 						</c:forEach>

@@ -81,7 +81,16 @@
 	    }
 	}
 	
+	function removeTag(str) {
+		return str.replace(/(<([^>]+)>)/gi, "");
+	}
+	
 	function chk() {
+		
+		var before_subject = frm.brd_subject.value;
+		var after_subject = removeTag(before_subject);
+		frm.brd_subject.value = after_subject;
+		
 		var fmt2 = /^\s\s*$/;
 		
 		if (fmt2.test(frm.brd_subject.value) || frm.brd_subject.value == "") {
@@ -91,12 +100,17 @@
 			return false;
 		}
 		
+		var before_content = frm.brd_content.value;
+		var after_content = removeTag(before_content);
+		frm.brd_content.value = after_content;
+		
 		if (fmt2.exec(frm.brd_content.value) || frm.brd_content.value == "") {
 			alert ("내용을 입력하세요");
 			frm.brd_content.value="";
 			frm.brd_content.focus();
 			return false;
 		}
+		
 		return true;
 	}
 </script>

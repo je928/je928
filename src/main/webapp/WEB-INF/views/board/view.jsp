@@ -28,7 +28,7 @@
 		}
 	}
 	
-	function delChk() {
+	/* function delChk() {
 		var replyCount = ${replyCount};
 		var refTotal = ${refTotal};
 		if(replyCount > 0 ) {
@@ -40,6 +40,10 @@
 				location.href="deleteForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}";				
 			}
 		}
+	} */
+	
+	function delChk() {
+		location.href="deleteForm.do?brd_no=${board.brd_no}&pageNum=${pageNum}";
 	}
 	
 	$(document).ready(function(){
