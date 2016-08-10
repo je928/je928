@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import bowtech.model.Board;
+import bowtech.model.BoardFile;
 import bowtech.model.BoardReply;
 
 public interface BoardService {
@@ -28,5 +29,7 @@ public interface BoardService {
 	int refTotal(int brd_no);
 	Date newday();
 	int refLimit(int ref);
+	int fileNo();
+	int fileInsert(BoardFile boardfile);
 	
 }

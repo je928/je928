@@ -22,9 +22,20 @@ create table bow_board_re (
 	m_no number not null
 );
 
+create table bow_board_file (
+	f_no number primary key,
+	f_original_name varchar2(260 byte) not null,
+	f_stored_name varchar2(36 byte) not null,
+	f_size number,
+	f_del_yn char(1) default 'n' check (f_del_yn in ('y','n')),
+	brd_no number not null
+);
+
 select * from bow_board;
 select * from bow_board_re;
+select * from bow_board_file;
 
 drop table bow_board;
 drop table bow_board_re;
+drop table bow_board_file;
 

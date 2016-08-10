@@ -8,6 +8,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+
+	$(document).ready(function() {
+		$('#addFile').click(function() {
+			var fileIndex = $('#fileview tr').length;
+			$('#fileview').append(
+				'<tr><td>'+
+				'<input type="file" name="files['+ fileIndex +']" /></td>'+
+				'<td><button type="button" style="font-size: 5px;" class="btn btn-sm btn-default" id="fileremove">'+
+				'<i class="glyphicon glyphicon-remove"></i></button>'+
+				'</td></tr>'
+			);
+		});
+	});
+	
 	function subjectChk(obj, maxByte) {
 	    var strValue = obj.value;
 	    var strLen = strValue.length;
@@ -140,7 +154,7 @@
 		<div class="container">
 			<div class="col-lg-9 col-md-offset-20">
 				<div class="panel panel-default panel-table">
-					<form action="write.do" name="frm" method="post" role="form" onsubmit="return chk()">
+					<form action="write.do" name="frm" method="post" enctype="multipart/form-data" role="form" onsubmit="return chk()">
 						<input type="hidden" name="m_no" value="${no}">
 						<input type="hidden" name="brd_no" value="${board.brd_no}">
 						<input type="hidden" name="ref" value="${board.ref}">
@@ -160,6 +174,15 @@
 							<textarea class="form-control-95" name="brd_content"
 								id="content" rows="20" oninput="contentChk(this, 3000)" maxlength="3001" placeholder="내용을 입력해 주세요." required>${board.brd_content}</textarea>
 							<div class="text-right" style="margin-right: 27px;"><span id="counter">0</span>/3000 byte</div>
+						</div>
+						<div class="form-group" style="margin-left: 20px; background-color: #EAEAEA; padding: 15px 15px 15px 15px; width: 95%;">
+							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" />
+							<p></p>
+							<table id="fileview">
+								<tr>
+									<td><input name="files[0]" type="file" /></td>
+								</tr>
+							</table>
 						</div>
 						<div class="panel-footer text-center">
 							<span>

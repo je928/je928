@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="fileResult" type="file">
+		<result property="f_no" column="f_no" />
+		<result property="f_original_name" column="f_original_name" />
+		<result property="f_stored_name" column="f_stored_name" />
+		<result property="f_size" column="f_size" />
+		<result property="f_del_yn" column="f_del_yn" />
+		<result property="brd_no" column="brd_no" />
+	</resultMap>
+	
+	<select id="fileNo" resultType="Integer">
+		select nvl(max(f_no),0)+1 from bow_board_file
+	</select>
+	
+	<insert id="fileInsert" parameterType="file">
+		insert into bow_board_file values(#{f_no},#{f_original_name},#{f_stored_name},#{f_size},'n',#{brd_no})		
+	</insert>
+	
+	
+	
+</mapper>

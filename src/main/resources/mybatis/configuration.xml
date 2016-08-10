@@ -6,11 +6,13 @@
 	<typeAliases>
 		<typeAlias alias="member" type="bowtech.model.Member" />
 		<typeAlias alias="board" type="bowtech.model.Board"/>
-		<typeAlias alias="reply" type="bowtech.model.BoardReply"/>		
+		<typeAlias alias="reply" type="bowtech.model.BoardReply"/>
+		<typeAlias alias="file" type="bowtech.model.BoardFile"/>		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/Member.xml" />
 		<mapper resource="mybatis/Board.xml" />
 		<mapper resource="mybatis/BoardReply.xml" />
+		<mapper resource="mybatis/BoardFile.xml" />		
 	</mappers>
 </configuration>

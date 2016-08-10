@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bowtech.model.Board;
+import bowtech.model.BoardFile;
 import bowtech.model.BoardReply;
 
 @Repository
@@ -167,6 +168,20 @@ public class BoardDaoImpl implements BoardDao {
 			System.out.println(e.getMessage());
 		}
 		return total;
+	}
+	
+	public int fileNo() {
+		return session.selectOne("file.fileNo");
+	}
+
+	public int fileInsert(BoardFile boardfile) {
+		int result2 = 0;
+		try {
+			result2 = session.insert("file.fileInsert", boardfile);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return result2;
 	}
 
 }

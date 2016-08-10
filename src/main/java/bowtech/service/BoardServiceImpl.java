@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import bowtech.dao.BoardDao;
 import bowtech.model.Board;
+import bowtech.model.BoardFile;
 import bowtech.model.BoardReply;
 
 @Service
@@ -95,6 +96,14 @@ public class BoardServiceImpl implements BoardService {
 
 	public int refLimit(int ref) {
 		return bd.refLimit(ref);
+	}
+
+	public int fileNo() {
+		return bd.fileNo();
+	}
+	
+	public int fileInsert(BoardFile boardfile) {
+		return bd.fileInsert(boardfile);
 	}
 
 }

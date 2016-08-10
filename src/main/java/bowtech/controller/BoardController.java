@@ -1,5 +1,7 @@
 package bowtech.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import bowtech.model.Board;
+import bowtech.model.BoardFile;
 import bowtech.model.BoardReply;
 import bowtech.service.BoardPagingBean;
 import bowtech.service.BoardService;
@@ -114,7 +119,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="write")
-	public String write(Board board, String pageNum, Model model, HttpServletRequest request) {
+	public String write(Board board, BoardFile boardfile, String pageNum, Model model, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		int number = bs.insertNo();
 		// 답변글 시작
 		if(board.getBrd_no() > 0) {
@@ -126,6 +131,25 @@ public class BoardController {
 		}
 		// 답변글 끝
 		board.setBrd_no(number);
+		List<MultipartFile> files = boardfile.getFiles();
+		System.out.println(files);
+		if (null != files && files.size() > 0) {
+			for (MultipartFile mf : files) {
+				if(!mf.isEmpty()) {
+					int fileNo = bs.fileNo();
+					String originalName = mf.getOriginalFilename();
+					String uploadName = System.currentTimeMillis()+mf.getOriginalFilename();
+					int size = (int) mf.getSize();
+					mf.transferTo(new File(session.getServletContext().getRealPath("/")+uploadName));
+					boardfile.setF_no(fileNo);
+					boardfile.setF_original_name(originalName);
+					boardfile.setF_stored_name(uploadName);
+					boardfile.setF_size(size);
+					boardfile.setBrd_no(number);
+					bs.fileInsert(boardfile);
+			}
+			}
+		}
 		int result = bs.boardInsert(board);
 		model.addAttribute("pageNum", pageNum);
 		if(result > 0) {
