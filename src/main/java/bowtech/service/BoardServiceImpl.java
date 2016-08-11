@@ -110,4 +110,8 @@ public class BoardServiceImpl implements BoardService {
 		return bd.selectFile(brd_no);
 	}
 
+	public int fileCount(int brd_no) {
+		return bd.fileCount(brd_no);
+	}
+
 }

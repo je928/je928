@@ -188,4 +188,14 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("file.selectFile", brd_no);
 	}
 
+	public int fileCount(int brd_no) {
+		int total = 0;
+		try {
+			total = session.selectOne("file.fileCount", brd_no);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return total;
+	}
+
 }

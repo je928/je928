@@ -1,17 +1,19 @@
 package bowtech.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import bowtech.model.Board;
@@ -121,7 +123,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="write")
-	public String write(Board board, BoardFile boardfile, String pageNum, Model model, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
+	public String write(Board board, BoardFile boardfile, String pageNum, Model model, HttpSession session) throws IllegalStateException, IOException {
 		int number = bs.insertNo();
 		// 답변글 시작
 		if(board.getBrd_no() > 0) {
@@ -141,9 +143,13 @@ public class BoardController {
 				if(!mf.isEmpty()) {
 					int fileNo = bs.fileNo();
 					String originalName = mf.getOriginalFilename();
-					String uploadName = System.currentTimeMillis()+mf.getOriginalFilename();
+					String match = "[@]|[#]|[$]|[%]|[&]|[+]|[=]|[,]";
+					String re_originalName = originalName.replaceAll(match, "");
+					System.out.println(re_originalName);
+					String uploadName = System.currentTimeMillis()+re_originalName;
 					int size = (int) mf.getSize();
 					mf.transferTo(new File(session.getServletContext().getRealPath("/")+uploadName));
+					System.out.println(session.getServletContext().getRealPath("/"));
 					boardfile.setF_no(fileNo);
 					boardfile.setF_original_name(originalName);
 					boardfile.setF_stored_name(uploadName);
@@ -253,6 +259,22 @@ public class BoardController {
 			model.addAttribute("pageNum", pageNum);
 			return "forward:view.do?brd_no="+boardReply.getBrd_no();
 		}
+	}
+	
+	@RequestMapping(value="filedown")
+	public void filedown(String fileName, String ofileName, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
+		System.out.println(fileName);
+		response.setHeader("Content-Disposition", "attachment;filename="+ofileName);
+		String filePath = session.getServletContext().getRealPath("/")+fileName;
+		FileInputStream fi = new FileInputStream(filePath);
+		ServletOutputStream sout = response.getOutputStream();
+		byte[] buf = new byte[1024];
+		int size = 0;
+		while((size = fi.read(buf, 0, 1024))!=-1){
+			sout.write(buf, 0, size);
+		}
+		fi.close();
+		sout.close();
 	}
 	
 }

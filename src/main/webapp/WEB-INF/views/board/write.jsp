@@ -186,7 +186,7 @@
 							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" style="margin-bottom: 10px;"/>
 							<table id="fileview">
 								<tr>
-									<td><input type="file" name="files[0]" style="margin-bottom: 3px;" /></td>
+									<td><input type="file" name="files[0]" id="filename" style="margin-bottom: 3px;" /></td>
 									<td><button type="button" style="font-size: 5px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
 									<i class="glyphicon glyphicon-remove"></i></button></td>
 								</tr>

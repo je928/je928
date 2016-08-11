@@ -24,6 +24,8 @@
 		insert into bow_board_file values(#{f_no},#{f_original_name},#{f_stored_name},#{f_size},'n',#{brd_no})		
 	</insert>
 	
-	
+	<select id="fileCount" parameterType="Integer" resultType="Integer">
+		select count(*) from bow_board_file where brd_no=#{brd_no} and f_del_yn = 'n'
+	</select>
 	
 </mapper>

@@ -1437,6 +1437,22 @@ a:focus {
 	outline-offset: -2px;
 }
 
+.fileview {
+	color: #0000C9;
+	text-decoration: underline;
+}
+
+.fileview:hover, a:focus {
+	color: #2196f3;
+	text-decoration: underline;
+}
+
+.fileview:focus {
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
 figure {
 	margin: 0;
 }

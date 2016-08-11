@@ -63,6 +63,7 @@
 								<th width="12%">글쓴이</th>
 								<th width="9%">작성일</th>
 								<th width="6%">조회수</th>
+								<th width="6%">첨부파일</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -80,6 +81,21 @@
 							<c:if test="${brd.re_step>0}">
 								<img alt="" src="images/level.gif" width="${brd.re_level*10}">
 								<img alt="" src="images/re.gif">
+								<c:if test="${brd.sublength > 22}">
+								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
+									<c:out value="${fn:substring(brd.brd_subject,0,22)}"/>...
+								</a>
+								</c:if>
+								<c:if test="${brd.sublength < 22}">
+								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
+									${brd.brd_subject}
+								</a>
+								</c:if>
+								<c:if test="${brd.replycount > 0}">
+								<font style="font-weight: 900; color: #2196f3;">[${brd.replycount}]</font>
+								</c:if>
+							</c:if>
+							<c:if test="${brd.re_step==0}">
 								<c:if test="${brd.sublength > 25}">
 								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
 									<c:out value="${fn:substring(brd.brd_subject,0,25)}"/>...
@@ -94,26 +110,17 @@
 								<font style="font-weight: 900; color: #2196f3;">[${brd.replycount}]</font>
 								</c:if>
 							</c:if>
-							<c:if test="${brd.re_step==0}">
-								<c:if test="${brd.sublength > 29}">
-								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
-									<c:out value="${fn:substring(brd.brd_subject,0,29)}"/>...
-								</a>
-								</c:if>
-								<c:if test="${brd.sublength < 29}">
-								<a href="view.do?brd_no=${brd.brd_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}">
-									${brd.brd_subject}
-								</a>
-								</c:if>
-								<c:if test="${brd.replycount > 0}">
-								<font style="font-weight: 900; color: #2196f3;">[${brd.replycount}]</font>
-								</c:if>
-							</c:if>
 							</td>
 			<!-- ***************************** 제목 *****************************  -->
 							<td>${brd.m_nick}</td>
 							<td>${brd.brd_reg_date}</td>
 							<td>${brd.brd_readcount}</td>
+							<c:set var="fileCount" value="${bs.fileCount(brd.brd_no)}"> </c:set>
+							<td>
+								<c:if test="${fileCount > 0}">
+								&nbsp;<i class="glyphicon glyphicon-floppy-disk" style="color: #030066;"></i>&nbsp;
+								</c:if>
+							</td>
 							</c:if>
 							<c:if test="${brd.brd_del_yn == 'y'}">
 							<td colspan="4" class="text-left"> 이 글은 작성자에 의해서 삭제되었습니다. </td>

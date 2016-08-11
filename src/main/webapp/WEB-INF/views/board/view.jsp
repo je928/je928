@@ -209,9 +209,12 @@
 								<td class="text-left">
 									<c:forEach var="file" items="${fileList}">
 				                        <input type="hidden" id="f_no" value="${file.f_no}">
-				                        <a href="#this">${file.f_original_name}</a> 
-				                        (${file.f_size}kb)
+				                        <a href="filedown.do?fileName=${file.f_stored_name}&ofileName=${file.f_original_name}" class="fileview">${file.f_original_name}</a> 
+				                        <font size="2px">(${file.f_size} byte)</font><br>
 				                    </c:forEach>
+				                    <c:if test="${empty fileList}">
+				                    	<font color="#A6A6A6" size="2px">첨부된 파일이 없습니다.</font>
+				                    </c:if>
 								</td>
 							</tr>
 							<tr>
