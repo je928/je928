@@ -12,13 +12,20 @@
 	$(document).ready(function() {
 		$('#addFile').click(function() {
 			var fileIndex = $('#fileview tr').length;
-			$('#fileview').append(
-				'<tr><td>'+
-				'<input type="file" name="files['+ fileIndex +']" /></td>'+
-				'<td><button type="button" style="font-size: 5px;" class="btn btn-sm btn-default" id="fileremove">'+
-				'<i class="glyphicon glyphicon-remove"></i></button>'+
-				'</td></tr>'
-			);
+			if(fileIndex < 5) {
+				$('#fileview').append(
+					'<tr><td>'+
+					'<input type="file" name="files['+ fileIndex +']" style="margin-bottom: 3px;"/></td>'+
+					'<td><button type="button" style="font-size: 5px;" id="fileremove['+ fileIndex +']" class="btn btn-sm btn-default fileremove">'+
+					'<i class="glyphicon glyphicon-remove"></i></button>'+
+					'</td></tr>'
+				);
+			}else {
+				alert("파일 첨부는 5개까지 할 수 있습니다.");
+			}
+		});
+		$("#fileview").on('click', '.fileremove', function(){
+			$(this).parent().parent().remove();
 		});
 	});
 	
@@ -176,11 +183,12 @@
 							<div class="text-right" style="margin-right: 27px;"><span id="counter">0</span>/3000 byte</div>
 						</div>
 						<div class="form-group" style="margin-left: 20px; background-color: #EAEAEA; padding: 15px 15px 15px 15px; width: 95%;">
-							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" />
-							<p></p>
+							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" style="margin-bottom: 10px;"/>
 							<table id="fileview">
 								<tr>
-									<td><input name="files[0]" type="file" /></td>
+									<td><input type="file" name="files[0]" style="margin-bottom: 3px;" /></td>
+									<td><button type="button" style="font-size: 5px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
+									<i class="glyphicon glyphicon-remove"></i></button></td>
 								</tr>
 							</table>
 						</div>

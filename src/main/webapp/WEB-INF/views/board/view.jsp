@@ -205,6 +205,16 @@
 								</tr>
 							</c:if>
 							<tr>
+								<th>첨부파일</th>
+								<td class="text-left">
+									<c:forEach var="file" items="${fileList}">
+				                        <input type="hidden" id="f_no" value="${file.f_no}">
+				                        <a href="#this">${file.f_original_name}</a> 
+				                        (${file.f_size}kb)
+				                    </c:forEach>
+								</td>
+							</tr>
+							<tr>
 								<td colspan="2" style="white-space:pre-wrap; word-wrap:break-word;"><div class="text-left" style="margin: 20px;">${board.brd_content}</div></td>
 							</tr>
 						</c:if>

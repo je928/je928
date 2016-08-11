@@ -106,4 +106,8 @@ public class BoardServiceImpl implements BoardService {
 		return bd.fileInsert(boardfile);
 	}
 
+	public List<BoardFile> selectFile(int brd_no) {
+		return bd.selectFile(brd_no);
+	}
+
 }

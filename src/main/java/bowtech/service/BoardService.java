@@ -31,5 +31,6 @@ public interface BoardService {
 	int refLimit(int ref);
 	int fileNo();
 	int fileInsert(BoardFile boardfile);
+	List<BoardFile> selectFile(int brd_no);
 	
 }

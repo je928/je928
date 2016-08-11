@@ -184,4 +184,8 @@ public class BoardDaoImpl implements BoardDao {
 		return result2;
 	}
 
+	public List<BoardFile> selectFile(int brd_no) {
+		return session.selectList("file.selectFile", brd_no);
+	}
+
 }

@@ -12,6 +12,10 @@
 		<result property="brd_no" column="brd_no" />
 	</resultMap>
 	
+	<select id="selectFile" resultType="file" parameterType="Integer">
+		select * from bow_board_file where brd_no = #{brd_no} and f_del_yn = 'n' order by f_no
+	</select>
+	
 	<select id="fileNo" resultType="Integer">
 		select nvl(max(f_no),0)+1 from bow_board_file
 	</select>

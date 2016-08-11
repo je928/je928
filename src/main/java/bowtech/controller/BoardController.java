@@ -78,9 +78,10 @@ public class BoardController {
 		bs.boardHit(brd_no);
 		Board board = bs.boardSelect(brd_no);
 		List<BoardReply> reList = bs.selectReply(brd_no);
+		List<BoardFile> fileList = bs.selectFile(brd_no);
 		int replyCount = bs.replyCount(brd_no);
 		int refTotal = bs.refTotal(brd_no);
-		board.setSearchType(searchType);		
+		board.setSearchType(searchType);	
 		board.setSearchTxt(searchTxt);
 		if (board.getSearchType() != null) {
 			model.addAttribute("searchType", board.getSearchType());
@@ -89,6 +90,7 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("reList", reList);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("replyCount", replyCount);
 		model.addAttribute("refTotal", refTotal);
 		model.addAttribute("bs", bs);
@@ -132,6 +134,7 @@ public class BoardController {
 		// 답변글 끝
 		board.setBrd_no(number);
 		List<MultipartFile> files = boardfile.getFiles();
+		while (files.remove(null));
 		System.out.println(files);
 		if (null != files && files.size() > 0) {
 			for (MultipartFile mf : files) {
@@ -147,7 +150,7 @@ public class BoardController {
 					boardfile.setF_size(size);
 					boardfile.setBrd_no(number);
 					bs.fileInsert(boardfile);
-			}
+				}
 			}
 		}
 		int result = bs.boardInsert(board);
