@@ -123,14 +123,14 @@
 							</td>
 							</c:if>
 							<c:if test="${brd.brd_del_yn == 'y'}">
-							<td colspan="4" class="text-left"> 이 글은 작성자에 의해서 삭제되었습니다. </td>
+							<td colspan="5" class="text-left"> 이 글은 작성자에 의해서 삭제되었습니다. </td>
 							</c:if>
 						</tr>
 						<c:set var="no" value="${no-1}"></c:set>
 						</c:forEach>
 						<c:if test="${empty list}">
 							<tr>
-								<td colspan="5">데이터가 없습니다.</td>
+								<td colspan="6">데이터가 없습니다.</td>
 							</tr>
 						</c:if>
 						</tbody>

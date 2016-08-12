@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	<select id="selectFile" resultType="file" parameterType="Integer">
-		select * from bow_board_file where brd_no = #{brd_no} and f_del_yn = 'n' order by f_no
+		select * from bow_board_file where brd_no = #{brd_no} order by f_no
 	</select>
 	
 	<select id="fileNo" resultType="Integer">
@@ -21,11 +21,19 @@
 	</select>
 	
 	<insert id="fileInsert" parameterType="file">
-		insert into bow_board_file values(#{f_no},#{f_original_name},#{f_stored_name},#{f_size},'n',#{brd_no})		
+		insert into bow_board_file values(#{f_no},#{f_original_name},#{f_stored_name},#{f_size},#{brd_no})		
 	</insert>
 	
 	<select id="fileCount" parameterType="Integer" resultType="Integer">
-		select count(*) from bow_board_file where brd_no=#{brd_no} and f_del_yn = 'n'
+		select count(*) from bow_board_file where brd_no=#{brd_no}
 	</select>
+	
+	<delete id="fileDelete" parameterType="file">
+		delete from bow_board_file where f_no=#{f_no}
+	</delete>
+	
+	<delete id="fileDeleteAll" parameterType="Integer">
+		delete from bow_board_file where brd_no=#{brd_no}
+	</delete>
 	
 </mapper>

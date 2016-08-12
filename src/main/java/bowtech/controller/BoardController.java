@@ -146,11 +146,9 @@ public class BoardController {
 					String originalName = mf.getOriginalFilename();
 					String match = "[@]|[#]|[$]|[%]|[&]|[+]|[=]|[,]";
 					String re_originalName = originalName.replaceAll(match, "");
-					System.out.println(re_originalName);
 					String uploadName = System.currentTimeMillis()+re_originalName;
 					int size = (int) mf.getSize();
 					mf.transferTo(new File(session.getServletContext().getRealPath("/")+uploadName));
-					System.out.println(session.getServletContext().getRealPath("/"));
 					boardfile.setF_no(fileNo);
 					boardfile.setF_original_name(originalName);
 					boardfile.setF_stored_name(uploadName);
@@ -174,15 +172,49 @@ public class BoardController {
 	@RequestMapping(value="updateForm")
 	public String updateForm(int brd_no, String pageNum, Model model) {
 		Board board = bs.boardSelect(brd_no);
+		List<BoardFile> fileList = bs.selectFile(brd_no);
+		int fileCount = bs.fileCount(brd_no);
 		model.addAttribute("board", board);
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("fileCount", fileCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pgm", "../board/updateForm.jsp");
 		return "module/main";
 	}
 	
 	@RequestMapping(value="update")
-	public String update(Board board, String pageNum, Model model) {
+	public String update(Board board, BoardFile boardfile, String pageNum, Model model, HttpSession session) throws IllegalStateException, IOException { 
 		int result = bs.boardUpdate(board);
+		int number = board.getBrd_no();
+		List<String> filedellist = boardfile.getFiledellist();
+		if(filedellist != null) {
+			for (String fno : filedellist) {
+				int delfno = Integer.parseInt(fno);
+				boardfile.setF_no(delfno);
+				bs.fileDelete(boardfile);
+			}
+		}
+		List<MultipartFile> files = boardfile.getFiles();
+		while (files.remove(null));
+		if (null != files && files.size() > 0) {
+			for (MultipartFile mf : files) {
+				if(!mf.isEmpty()) {
+					int fileNo = bs.fileNo();
+					String originalName = mf.getOriginalFilename();
+					String match = "[@]|[#]|[$]|[%]|[&]|[+]|[=]|[,]";
+					String re_originalName = originalName.replaceAll(match, "");
+					String uploadName = System.currentTimeMillis()+re_originalName;
+					int size = (int) mf.getSize();
+					mf.transferTo(new File(session.getServletContext().getRealPath("/")+uploadName));
+					boardfile.setF_no(fileNo);
+					boardfile.setF_original_name(originalName);
+					boardfile.setF_stored_name(uploadName);
+					boardfile.setF_size(size);
+					boardfile.setBrd_no(number);
+					bs.fileInsert(boardfile);
+				}
+			}
+		}
 		if(result > 0) {
 			return "redirect:view.do?brd_no="+board.getBrd_no()+"&pageNum="+pageNum;
 		}else {
@@ -271,7 +303,6 @@ public class BoardController {
 		ServletOutputStream servletOutputStream = null;
 		
 		String subfileName = fileName.substring(13);
-		System.out.println(subfileName);
 		
 		try {
 			String downName = null;

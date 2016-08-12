@@ -16,7 +16,7 @@
 				$('#fileview').append(
 					'<tr><td>'+
 					'<input type="file" name="files['+ fileIndex +']" style="margin-bottom: 3px;"/></td>'+
-					'<td><button type="button" style="font-size: 5px;" id="fileremove['+ fileIndex +']" class="btn btn-sm btn-default fileremove">'+
+					'<td><button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px; id="fileremove['+ fileIndex +']" class="btn btn-sm btn-default fileremove">'+
 					'<i class="glyphicon glyphicon-remove"></i></button>'+
 					'</td></tr>'
 				);
@@ -187,7 +187,7 @@
 							<table id="fileview">
 								<tr>
 									<td><input type="file" name="files[0]" id="filename" style="margin-bottom: 3px;" /></td>
-									<td><button type="button" style="font-size: 5px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
+									<td><button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
 									<i class="glyphicon glyphicon-remove"></i></button></td>
 								</tr>
 							</table>

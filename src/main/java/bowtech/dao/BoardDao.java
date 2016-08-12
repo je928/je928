@@ -33,5 +33,6 @@ public interface BoardDao {
 	int fileInsert(BoardFile boardfile);
 	List<BoardFile> selectFile(int brd_no);
 	int fileCount(int brd_no);
+	void fileDelete(BoardFile boardfile);
 	
 }

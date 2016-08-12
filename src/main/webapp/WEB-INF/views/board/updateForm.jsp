@@ -8,6 +8,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+	$(document).ready(function() {
+		var fileCount = ${fileCount};
+
+		if(fileCount > 4) {
+			$(".filetable").hide();
+		};
+		var count = 0;
+
+		$("#filelist").on('click', '.filedel', function(){
+			$(".filetable").show();
+			$(this).parent().parent().remove();
+			count++;
+			var bb = count - 1;
+			var aa = $(this).attr("id");
+			$('#filedellist').append(
+				'<input type="hidden" name="filedellist['+ bb +']" value="'+aa+'">'
+			);
+		});
+		
+		$('#addFile').click(function() {
+			var fileIndex = $('#fileview tr').length;
+			var aa = 5 - fileCount + count;
+
+			if(fileIndex < aa) {
+				$('#fileview').append(
+					'<tr><td>'+
+					'<input type="file" name="files['+ fileIndex +']" style="margin-bottom: 3px;"/></td>'+
+					'<td><button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px; id="fileremove['+ fileIndex +']" class="btn btn-sm btn-default fileremove">'+
+					'<i class="glyphicon glyphicon-remove"></i></button>'+
+					'</td></tr>'
+				);
+			}else {
+				alert("파일 첨부는 총 5개까지 할 수 있습니다.");
+			}
+		});
+		$("#fileview").on('click', '.fileremove', function(){
+			$(this).parent().parent().remove();
+		});
+	});
+	
 	function subjectChk(obj, maxByte) {
 	    var strValue = obj.value;
 	    var strLen = strValue.length;
@@ -139,7 +179,9 @@
 		<div class="container">
 			<div class="col-lg-9 col-md-offset-20">
 				<div class="panel panel-default panel-table">
-					<form action="update.do" name="frm" method="post" role="form" onsubmit="return chk()">
+					<form action="update.do" name="frm" method="post" role="form" enctype="multipart/form-data" onsubmit="return chk()">
+						<div id="filedellist">
+						</div>
 						<input type="hidden" name="brd_no" value="${board.brd_no}">
 						<input type="hidden" name="pageNum" value="${pageNum}">
 						<br style="clear: both">
@@ -156,6 +198,38 @@
 								id="content" rows="20" oninput="contentChk(this, 3000)" maxlength="3000" required>${board.brd_content}</textarea>
 							<div class="text-right" style="margin-right: 27px;">
 							<span id="counter">${board.byteSize}</span>/3000 byte</div>
+						</div>
+						<div class="form-group" style="margin-left: 20px; background-color: #EAEAEA; padding: 15px 15px 15px 15px; width: 95%;">
+							<table id="filelist">
+								<c:forEach var="file" items="${fileList}">
+								<tr class="text-left">
+									<td class="text-left">
+				                        <i class="glyphicon glyphicon-floppy-disk" style="color: #030066;"></i>
+				                        <font size="2px" color="black">${file.f_original_name}</font>
+				                        <font size="2px">(${file.f_size} byte)</font>
+				                        <button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px;" id="${file.f_no}" class="btn btn-sm btn-default filedel">
+										<i class="glyphicon glyphicon-remove"></i></button>
+				                    </td>
+			                    </tr>
+			                    </c:forEach>
+			                    <c:if test="${empty fileList}">
+			                    <tr class="text-left">
+			                    	<td>
+				                    	<font color="#A6A6A6" size="2px">첨부된 파일이 없습니다.</font>
+				                    </td>
+			                    </tr>
+			                    </c:if>
+		                    </table>
+						</div>
+						<div class="form-group" style="margin-left: 20px; background-color: #EAEAEA; padding: 15px 15px 15px 15px; width: 95%;">
+							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" style="margin-bottom: 10px;"/>
+							<table id="fileview" class="filetable">
+								<tr>
+									<td><input type="file" name="files[0]" id="filename" style="margin-bottom: 3px;" /></td>
+									<td><button type="button" style="font-size: 5px; padding: 2px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
+									<i class="glyphicon glyphicon-remove"></i></button></td>
+								</tr>
+							</table>
 						</div>
 						<div class="panel-footer text-center">
 							<span>

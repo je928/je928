@@ -13,14 +13,7 @@ public class BoardFile {
 	private String f_del_yn;
 	private int brd_no;
 	private List<MultipartFile> files;
-	
-	public List<MultipartFile> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<MultipartFile> files) {
-		this.files = files;
-	}
+	private List<String> filedellist;
 
 	public int getF_no() {
 		return f_no;
@@ -69,5 +62,21 @@ public class BoardFile {
 	public void setBrd_no(int brd_no) {
 		this.brd_no = brd_no;
 	}
+	
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
 
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
+	
+	public List<String> getFiledellist() {
+		return filedellist;
+	}
+
+	public void setFiledellist(List<String> filedellist) {
+		this.filedellist = filedellist;
+	}
+	
 }

@@ -114,4 +114,8 @@ public class BoardServiceImpl implements BoardService {
 		return bd.fileCount(brd_no);
 	}
 
+	public void fileDelete(BoardFile boardfile) {
+		bd.fileDelete(boardfile);
+	}
+
 }

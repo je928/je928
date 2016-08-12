@@ -80,12 +80,18 @@ public class BoardDaoImpl implements BoardDao {
 
 	public int boardDelete(int number) {
 		int result = 0;
+		int result2 = 0;
 		try {
-			result = session.update("board.boardDelete", number);
+			result = session.delete("file.fileDeleteAll", number);
+			if(result > 0) {
+				result2 = session.update("board.boardDelete", number);
+			}else {
+				result2 = session.update("board.boardDelete", number);
+			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		return result;
+		return result2;
 	}
 
 	public List<BoardReply> selectReply(int brd_no) {
@@ -196,6 +202,10 @@ public class BoardDaoImpl implements BoardDao {
 			System.out.println(e.getMessage());
 		}
 		return total;
+	}
+
+	public void fileDelete(BoardFile boardfile) {
+		session.delete("file.fileDelete", boardfile);
 	}
 
 }
