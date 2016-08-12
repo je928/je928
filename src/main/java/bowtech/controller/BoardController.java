@@ -3,6 +3,7 @@ package bowtech.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -262,9 +263,59 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="filedown")
-	public void filedown(String fileName, String ofileName, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
-		System.out.println(fileName);
-		response.setHeader("Content-Disposition", "attachment;filename="+ofileName);
+	public void filedown(String fileName, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+		String filePath = session.getServletContext().getRealPath("/")+fileName;
+		
+		FileInputStream fileInputStream = null;
+		ServletOutputStream servletOutputStream = null;
+		
+		String subfileName = fileName.substring(13);
+		System.out.println(subfileName);
+		
+		try {
+			String downName = null;
+			String browser = request.getHeader("User-Agent");
+			if(browser.contains("MSIE") || browser.contains("Trident") || browser.contains("Chrome")){
+				downName = URLEncoder.encode(subfileName,"UTF-8");
+			} else {
+				downName = new String(subfileName.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			response.setHeader("Content-Disposition","attachment;filename=\""+downName+"\"");
+			response.setContentType("application/octer-stream");
+			response.setHeader("Content-Transfer-Encoding", "binary;");
+
+			fileInputStream = new FileInputStream(filePath);
+			servletOutputStream = response.getOutputStream();
+			
+			byte b [] = new byte[1024];
+			int data = 0;
+			
+			while((data=(fileInputStream.read(b, 0, b.length))) != -1) {
+				servletOutputStream.write(b, 0, data);
+			}
+			servletOutputStream.flush();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally{
+				if(servletOutputStream!=null){
+					try {
+						servletOutputStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (fileInputStream!=null){
+					try {
+						fileInputStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	
+		/*response.setHeader("Content-Disposition", "attachment;filename="+ofileName);
 		String filePath = session.getServletContext().getRealPath("/")+fileName;
 		FileInputStream fi = new FileInputStream(filePath);
 		ServletOutputStream sout = response.getOutputStream();
@@ -274,7 +325,6 @@ public class BoardController {
 			sout.write(buf, 0, size);
 		}
 		fi.close();
-		sout.close();
-	}
+		sout.close();*/
 	
-}
+	}
