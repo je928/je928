@@ -20,18 +20,18 @@
 			$(".filetable").show();
 			$(this).parent().parent().remove();
 			count++;
-			var bb = count - 1;
-			var aa = $(this).attr("id");
+			var filedelIndex = count - 1;
+			var filedelId = $(this).attr("id");
 			$('#filedellist').append(
-				'<input type="hidden" name="filedellist['+ bb +']" value="'+aa+'">'
+				'<input type="hidden" name="filedellist['+ filedelIndex +']" value="'+filedelId+'">'
 			);
 		});
 		
 		$('#addFile').click(function() {
 			var fileIndex = $('#fileview tr').length;
-			var aa = 5 - fileCount + count;
+			var totalcount = 5 - fileCount + count;
 
-			if(fileIndex < aa) {
+			if(fileIndex < totalcount) {
 				$('#fileview').append(
 					'<tr><td>'+
 					'<input type="file" name="files['+ fileIndex +']" style="margin-bottom: 3px;"/></td>'+

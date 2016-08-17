@@ -245,8 +245,14 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "delete")
-	public String delete(Board board, String brd_no, String pageNum, Model model) {
+	public String delete(Board board, String brd_no, BoardFile boardfile, String pageNum, Model model, HttpSession session) {
 		int number = Integer.parseInt(brd_no);
+		List<BoardFile> fileList = bs.selectFile(number);
+		for (BoardFile filedelAll : fileList) {
+			String f_stor_all = filedelAll.getF_stored_name();
+			File f = new File(session.getServletContext().getRealPath("/") + f_stor_all); 
+			f.delete();
+		}
 		int result = bs.boardDelete(number);
 		if (result > 0) {
 			return "redirect:board.do?pageNum=" + pageNum;
