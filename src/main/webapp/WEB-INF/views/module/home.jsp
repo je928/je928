@@ -9,11 +9,11 @@
 </head>
 <body style="background-color: white;">
 
-			<div class="row"> 
-			<div style="margin-top: 65px;">
-				<img alt="" src="images/bowtech.jpg" width="1400px">
-				</div>
-			</div>
+	<div class="row">
+		<div style="margin-top: 65px;">
+			<img alt="" src="images/bowtech.jpg" width="1400px">
+		</div>
+	</div>
 
 </body>
 </html>

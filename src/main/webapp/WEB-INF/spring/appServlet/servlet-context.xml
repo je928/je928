@@ -17,9 +17,9 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<!-- html의 리소스 디렉토리를 정의해 둔 것. -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/css/**" location="/WEB-INF/css/" />
+	<!-- <resources mapping="/css/**" location="/WEB-INF/css/" />
 	<resources mapping="/js/**" location="/WEB-INF/js/" />
-	<resources mapping="/fonts/**" location="/WEB-INF/fonts/" />
+	<resources mapping="/fonts/**" location="/WEB-INF/fonts/" /> -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<!-- ViewResolver, jsp와 name을 매핑시켜준다. -->
