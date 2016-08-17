@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../module/header.jsp" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -156,17 +156,17 @@
 					</div>
 					<div class="form-group">
 						<b class="m">비밀번호:</b>
-						<input type="password" class="form-control" id="m_passwd" name="m_passwd" maxlength="20" required>
+						<label><input type="password" class="form-control" id="m_passwd" name="m_passwd" maxlength="20" required></label>
 						<span id="pwd_chk"> </span>
 					</div>
 					<div class="form-group">
 						<b class="m">비밀번호 재확인:</b>
-						<input type="password" class="form-control" id="m_passwd2" name="m_passwd2" maxlength="20" required>
+						<label><input type="password" class="form-control" id="m_passwd2" name="m_passwd2" maxlength="20" required></label>
 						<span id="pwd_chk2"> </span>
 					</div>
 					<div class="form-group">
 						<b class="m">닉네임:</b>
-						<input type="text" class="form-control" id="m_nick" name="m_nick" maxlength="10" required>
+						<label><input type="text" class="form-control" id="m_nick" name="m_nick" maxlength="10" required></label>
 						<span id="nick_chk"> </span>
 					</div>
 					<div style="margin-top: 40px; text-align: center;">

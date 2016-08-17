@@ -236,6 +236,9 @@
 								<button type="submit" class="btn btn-sm btn-primary">
 									확인<i class="glyphicon glyphicon-ok"></i>
 								</button>
+								<a href="javascript:history.go(-1);" class="btn btn-sm btn-primary">
+									취소<i class="glyphicon glyphicon-remove"></i>
+								</a>
 							</span>
 						</div>
 					</form>

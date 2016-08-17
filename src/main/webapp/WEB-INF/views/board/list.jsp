@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../module/header.jsp" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -20,6 +20,21 @@
 		var searchTxt = document.getElementById("searchTxt");
 		location.href="board.do?pageNum="+pageNum+"&searchType="+searchType.value+"&searchTxt="+searchTxt.value;
 	}
+	
+	$(document).ready(function() {
+		var searchType = document.getElementById("searchType");
+		var searchTxt = document.getElementById("searchTxt");
+		var sendData = 'pageNum='+${pb.nowPage}+'&searchType='+searchType.value+'&searchTxt='+searchTxt.value;
+		$('#exceldown').click(function() {
+			$.ajax({
+				 url: 'exceldown.do',
+				 data: sendData,
+				 success: function(){
+					 alert("D:드라이브에 엑셀 파일 생성 성공.");
+				 }
+			});
+		});
+	});
 	
 </script>
 </head>
@@ -50,6 +65,7 @@
 							Page ${pb.nowPage} of ${pb.totalPage}
 						</div>
 						<div class="col col-xs-6 text-right">
+							<button type="button" id="exceldown" class="btn btn-sm btn-success">엑셀다운<em class="glyphicon glyphicon-floppy-save"></em></button>
 							<a href="writeForm.do?pageNum=${pb.nowPage}" class="btn btn-sm btn-primary">글작성<em class="fa fa-edit"></em></a>	
 						</div>
 					</div>
@@ -200,7 +216,7 @@
 						<option value="m_nick">글쓴이</option>
 					</c:if>
 				</select>
-				<input type="text" id="searchTxt" class="form-control" placeholder="Search" value="${searchTxt}">
+				<label><input type="text" id="searchTxt" class="form-control" placeholder="Search" value="${searchTxt}"></label>
 			</div>
 			<button type="submit" class="btn btn-default" onclick="locate(1)"><i class="glyphicon fa-1x glyphicon-search"></i></button>
 		</div>

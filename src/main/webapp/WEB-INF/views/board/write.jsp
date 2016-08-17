@@ -3,7 +3,7 @@
 <%@ include file="../module/header.jsp"%>
 <%@ include file="../session/sessionChk.jsp"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -173,9 +173,9 @@
 							<em class="fa fa-edit"></em>
 						</h3>
 						<div class="form-group">
-							<input type="text" class="form-control-95" name="brd_subject"
+							<label><input type="text" class="form-control-95" name="brd_subject"
 								id="subject" oninput="subjectChk(this, 300)" maxlength="1000" placeholder="제목을 입력해 주세요."
-								autofocus="autofocus" value="${board.brd_subject}" required>
+								autofocus="autofocus" value="${board.brd_subject}" required></label>
 						</div>
 						<div class="form-group">
 							<textarea class="form-control-95" name="brd_content"
@@ -186,7 +186,7 @@
 							<input id="addFile" type="button" value="파일추가" class="btn btn-sm btn-default" style="margin-bottom: 10px;"/>
 							<table id="fileview">
 								<tr>
-									<td><input type="file" name="files[0]" id="filename" style="margin-bottom: 3px;" /></td>
+									<td><label><input type="file" name="files[0]" id="filename" style="margin-bottom: 3px;" /></label></td>
 									<td><button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px;" id="fileremove[0]" class="btn btn-sm btn-default fileremove">
 									<i class="glyphicon glyphicon-remove"></i></button></td>
 								</tr>
@@ -197,6 +197,9 @@
 								<button type="submit" class="btn btn-sm btn-primary">
 									확인<i class="glyphicon glyphicon-ok"></i>
 								</button>
+								<a href="javascript:history.go(-1);" class="btn btn-sm btn-primary">
+									취소<i class="glyphicon glyphicon-remove"></i>
+								</a>
 							</span>
 						</div>
 					</form>
