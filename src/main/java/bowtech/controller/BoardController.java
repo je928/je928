@@ -196,6 +196,9 @@ public class BoardController {
 			for (String fno : filedellist) {
 				int delfno = Integer.parseInt(fno);
 				boardfile.setF_no(delfno);
+				String f_stor_name = bs.fileSelect(boardfile);
+				File f = new File(session.getServletContext().getRealPath("/") + f_stor_name); 
+				f.delete();
 				bs.fileDelete(boardfile);
 			}
 		}

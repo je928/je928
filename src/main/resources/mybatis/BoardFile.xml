@@ -36,4 +36,8 @@
 		delete from bow_board_file where brd_no=#{brd_no}
 	</delete>
 	
+	<select id="fileSelect" parameterType="Integer" resultType="String">
+		select f_stored_name from bow_board_file where f_no=#{f_no}
+	</select>
+	
 </mapper>

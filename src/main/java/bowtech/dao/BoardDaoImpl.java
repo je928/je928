@@ -208,4 +208,14 @@ public class BoardDaoImpl implements BoardDao {
 		session.delete("file.fileDelete", boardfile);
 	}
 
+	public String fileSelect(BoardFile boardfile) {
+		String f_stor_name = "";
+		try {
+			f_stor_name = session.selectOne("file.fileSelect", boardfile);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return f_stor_name;
+	}
+
 }

@@ -118,4 +118,8 @@ public class BoardServiceImpl implements BoardService {
 		bd.fileDelete(boardfile);
 	}
 
+	public String fileSelect(BoardFile boardfile) {
+		return bd.fileSelect(boardfile);
+	}
+
 }
