@@ -28,42 +28,48 @@
 	
 	<select id="boardTotal" parameterType="board" resultType="Integer">
   		select count(*) from bow_board b, bow_member m where b.m_no=m.m_no
-	  		<if test="searchTxt != null">
-	  			<choose>
-		  			<when test="searchType == 'all'">
-	  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%')
-	  				</when>
-		  			<when test="searchType == 'brd_subject'">
-	  					and brd_subject like '%'||#{searchTxt}||'%'
-	  				</when>
-	  				<when test="searchType == 'brd_content'">
-	  					and brd_content like '%'||#{searchTxt}||'%'
-	  				</when>
-	  				<when test="searchType == 'm_nick'">
-	  					and m_nick like '%'||#{searchTxt}||'%'
-	  				</when>
-	  			</choose>
-	  		</if>
+  			<choose>
+	  			<when test="searchType == 'all'">
+	  				<if test="searchTxt == ''">
+  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%')
+	  				</if>
+	  				<if test="searchTxt != ''">
+  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%') and brd_del_yn = 'n'
+	  				</if>
+  				</when>
+	  			<when test="searchType == 'brd_subject'">
+  					and brd_subject like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  				<when test="searchType == 'brd_content'">
+  					and brd_content like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  				<when test="searchType == 'm_nick'">
+  					and m_nick like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  			</choose>
   	</select>
     
     <select id="boardList" parameterType="board" resultMap="BoardResult">
 		select * from (select rownum rn, a.* from (select b.*, m.m_nick as m_nick, (select count(*) from bow_board_re br where b.brd_no=br.brd_no and re_del_yn='n') as replycount, length(brd_subject) as sublength from bow_board b, bow_member m where b.m_no=m.m_no
-	  		<if test="searchTxt != null">
-	  			<choose>
-		  			<when test="searchType == 'all'">
-	  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%')
-	  				</when>
-		  			<when test="searchType == 'brd_subject'">
-	  					and brd_subject like '%'||#{searchTxt}||'%'
-	  				</when>
-	  				<when test="searchType == 'brd_content'">
-	  					and brd_content like '%'||#{searchTxt}||'%'
-	  				</when>
-	  				<when test="searchType == 'm_nick'">
-	  					and m.m_nick like '%'||#{searchTxt}||'%'
-	  				</when>
-	  			</choose>
-	  		</if>
+  			<choose>
+	  			<when test="searchType == 'all'">
+	  				<if test="searchTxt == ''">
+  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%')
+	  				</if>
+	  				<if test="searchTxt != ''">
+  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%') and brd_del_yn = 'n'
+	  				</if>
+  				</when>
+	  			<when test="searchType == 'brd_subject'">
+  					and brd_subject like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  				<when test="searchType == 'brd_content'">
+  					and brd_content like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  				<when test="searchType == 'm_nick'">
+  					and m.m_nick like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  				</when>
+  			</choose>
 		order by ref desc, re_step) a) where rn between #{startRow} and #{endRow}
   	</select>
   	
