@@ -21,6 +21,7 @@
 			<div class="navbar-collapse collapse" id="navbar-main">
 				<ul class="nav navbar-nav">
 					<li><a href="board.do">게시판</a></li>
+					<li><a href="researchList.do">설문조사</a></li>
 				</ul>
 				<c:set var="no" value="${sessionScope.no }"></c:set>
 				<c:if test="${empty no}">
