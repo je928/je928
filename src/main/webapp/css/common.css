@@ -614,6 +614,8 @@
 .tbl_type01, .tbl_type01 th {
 	border: 0;
 	vertical-align: middle;
+	border-spacing: 0;
+	padding: 0;
 }
 
 .tbl_type01 td {
@@ -1887,6 +1889,15 @@ a.on {
 }
 
 .research {
+	width: 100%;
+	float: left;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: solid 1px #e5e5e5;
+	margin-bottom: 20px;
+}
+
+.researchdiv {
 	width: 100%;
 	float: left;
 	padding-bottom: 20px;

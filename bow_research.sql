@@ -8,10 +8,7 @@ create table bow_research (
 	rs_end_date date,
 	rs_reg_date date default sysdate,
 	rs_update_date date,
-	rs_del_yn char(1) default 'n' check (rs_del_yn in ('y','n')),
-	ref number not null,
-	re_step number not null,
-	re_level number not null
+	rs_del_yn char(1) default 'n' check (rs_del_yn in ('y','n'))
 );
 
 create table bow_rs_question (
@@ -24,11 +21,6 @@ create table bow_rs_item (
 	i_no number primary key,
 	q_no number,
 	rs_no number,
-	i_num1 varchar2(2),
-	i_num2 varchar2(2),
-	i_num3 varchar2(2),
-	i_num4 varchar2(2),
-	i_num5 varchar2(2),
 	i_title1 varchar2(200),
 	i_title2 varchar2(200),
 	i_title3 varchar2(200),

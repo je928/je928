@@ -23,7 +23,7 @@
 		
 		<div class="col-lg-9 col-md-offset-18">
 			<div class="panel panel-default panel-table" style="padding-top: 50px;">
-				<table width="91.5%" border="0" cellspacing="0" cellpadding="0" class="tbl_type01" summary="설문조사" style="margin-left: 36px;">
+				<table class="tbl_type01" summary="설문조사" style="width:91.5%; margin-left: 36px;">
 					<caption>설문조사</caption>
 					<colgroup>
 						<col width="8%" />
@@ -46,7 +46,7 @@
 						</tr>
 						<tr>
 							<td>10</td>
-							<td class="tl"><a href="researchView.do" class="on">내용입니다.</a></td>
+							<td class="tl"><a href="researchView.do?rs_no=1&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}"" class="on">내용입니다.</a></td>
 							<td>2013-01-02</td>
 							<td>2013-01-02</td>
 							<td>완료</td>
@@ -59,7 +59,7 @@
 					<div class="row">
 						<div class="panel-body2 text-right" style="height: 0px; background-color: white;">
 							<span class="bbs_btn">
-								<a href="researchEdit.do" class="pre_r" style="margin-right: 35px;">글쓰기</a>
+								<a href="researchEditForm.do?pageNum=${pb.nowPage}" class="pre_r" style="margin-right: 35px;">글쓰기</a>
 							</span>
 						</div>
 						<div class="col">
@@ -105,10 +105,10 @@
 				<div class="panel-footer2 text-center" style="height: 150px; border-top:0px; background-color: white; margin-left: 22px;">
 					<div class="search_box">
 						<select id="searchType" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; padding-right:15px; line-height:1;">
-							<c:if test="${searchType eq 'brd_subject'}">
+							<c:if test="${searchType eq 'rs_subject'}">
 								<option value="subject" selected="selected">제목</option>
 							</c:if>
-							<c:if test="${searchType ne 'brd_subject'}">
+							<c:if test="${searchType ne 'rs_subject'}">
 								<option value="subject">제목</option>
 							</c:if>
 						</select>

@@ -14,12 +14,9 @@
 		<result property="rs_reg_date" column="rs_reg_date"/>
 		<result property="rs_update_date" column="rs_update_date"/>
 		<result property="rs_del_yn" column="rs_del_yn"/>
-		<result property="ref" column="ref"/>
-		<result property="re_step" column="re_step"/>
-		<result property="re_level" column="re_level"/>
 	</resultMap>
 	
-	<!-- <select id="boardTotal" parameterType="board" resultType="Integer">
+	<!-- <select id="researchTotal" parameterType="research" resultType="Integer">
   		select count(*) from bow_board b, bow_member m where b.m_no=m.m_no
   			<choose>
 	  			<when test="searchType == 'all'">
@@ -42,47 +39,38 @@
   			</choose>
   	</select>
     
-    <select id="boardList" parameterType="board" resultMap="BoardResult">
+    <select id="researchList" parameterType="research" resultMap="ResearchResult">
 		select * from (select rownum rn, a.* from (select b.*, m.m_nick as m_nick, (select count(*) from bow_board_re br where b.brd_no=br.brd_no and re_del_yn='n') as replycount, length(brd_subject) as sublength from bow_board b, bow_member m where b.m_no=m.m_no
   			<choose>
-	  			<when test="searchType == 'all'">
+	  			<when test="searchType == 'rs_subject'">
 	  				<if test="searchTxt == ''">
-  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%')
-	  				</if>
-	  				<if test="searchTxt != ''">
-  					and (brd_subject like '%'||#{searchTxt}||'%' or brd_content like '%'||#{searchTxt}||'%') and brd_del_yn = 'n'
-	  				</if>
-  				</when>
-	  			<when test="searchType == 'brd_subject'">
-  					and brd_subject like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
-  				</when>
-  				<when test="searchType == 'brd_content'">
-  					and brd_content like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
-  				</when>
-  				<when test="searchType == 'm_nick'">
-  					and m.m_nick like '%'||#{searchTxt}||'%' and brd_del_yn = 'n'
+  					and rs_subject like '%'||#{searchTxt}||'%'
+  					</if>
+  					<if test="searchTxt != ''">
+  					and rs_subject like '%'||#{searchTxt}||'%' and rs_del_yn = 'n'
+  					</if>
   				</when>
   			</choose>
 		order by ref desc, re_step) a) where rn between #{startRow} and #{endRow}
-  	</select>
+  	</select> -->
   	
-  	<update id="boardHit" parameterType="Integer">
-    	update bow_board set brd_readcount=brd_readcount+1 where brd_no=#{brd_no}
+  	<update id="researchHit" parameterType="Integer">
+    	update bow_research set rs_readcount=rs_readcount+1 where rs_no=#{rs_no}
     </update>
   	
-  	<select id="boardSelect" parameterType="Integer" resultType="board">
+  	<!-- <select id="researchSelect" parameterType="Integer" resultType="research">
   		select b.*, m.m_nick as m_nick, vsize(brd_content) as byteSize from bow_board b, bow_member m where b.brd_no=#{brd_no} and b.m_no=m.m_no
-	</select>
+	</select> -->
   	
   	<select id="insertNo" resultType="Integer">
-  		select nvl(max(brd_no),0)+1 from bow_board
+  		select nvl(max(rs_no),0)+1 from bow_research
   	</select>
   	
-  	<insert id="boardInsert" parameterType="board">
-  		insert into bow_board values(#{brd_no},#{brd_subject},#{brd_content},0,sysdate,null,'n',#{ref},#{re_step},#{re_level},#{m_no})
+  	<insert id="researchInsert" parameterType="research">
+  		insert into bow_research values(#{rs_no},#{rs_subject},#{rs_writer},#{rs_que_cnt},0,#{rs_start_date},#{rs_end_date},sysdate,null,'n')
   	</insert>
   	
-  	<update id="updateRe_step" parameterType="board">
+  	<!-- <update id="updateRe_step" parameterType="board">
   		update bow_board set re_step=re_step+1 where ref=#{ref} and re_step>#{re_step}
   	</update>
 	

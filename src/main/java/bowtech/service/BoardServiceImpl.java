@@ -23,7 +23,7 @@ public class BoardServiceImpl implements BoardService {
 
 	public int getTotal(Board board) {
 		return bd.getTotal(board);
-	}	
+	}
 
 	public void boardHit(int brd_no) {
 		bd.boardHit(brd_no);

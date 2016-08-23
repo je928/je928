@@ -25,7 +25,7 @@
 		<div class="col-lg-9 col-md-offset-18">
 			<div class="panel panel-default panel-table"
 				style="padding-top: 50px;">
-				<table width="91.5%" border="0" cellspacing="0" cellpadding="0" class="tbl_type01" summary="설문조사" style="margin-left: 36px;">
+				<table class="tbl_type01" summary="설문조사" style="width:91.5%; margin-left: 36px;">
 					<caption>설문조사</caption>
 					<colgroup>
 						<col width="15%" />
@@ -62,7 +62,7 @@
 										<li>③ 그렇다</li>
 										<li>④ 조금 아니다</li>
 										<li>⑤ 매우 아니다</li>
-										<li>선택사유 <input type="text" id="aa" name="aa" class="inp" style="width: 200px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; width:205px; border:solid 1px #c6c6c6; color:#666; padding:3px;"" />
+										<li>선택사유 <input type="text" id="aa" name="aa" class="inp" style="width: 200px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; width:205px; border:solid 1px #c6c6c6; color:#666; padding:3px;" />
 										</li>
 									</ul>
 								</div>
