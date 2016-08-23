@@ -106,31 +106,19 @@ public class ResearchController {
 				question.setRs_no(number);
 				question.setQ_subject(que);
 				rs.questionInsert(question);
-				if((item1List != null) && (item2List != null) && (item3List != null) && (item4List != null) && (item5List != null)) {
+				
+				if(item1List != null) {
 					for (String item1 : item1List) {
 						int ino = rs.insertIno();
 						item.setI_no(ino);
 						item.setQ_no(qno);
 						item.setRs_no(number);
 						item.setI_title1(item1);
-					};
-					for (String item2 : item2List) {
-						item.setI_title2(item2);
-					};
-					for (String item3 : item3List) {
-						item.setI_title3(item3);
-					};
-					for (String item4 : item4List) {
-						item.setI_title4(item4);
-					};
-					for (String item5 : item5List) {
-						item.setI_title5(item5);
 						rs.itemInsert(item);
-					};
-					
+					}
 				}
-			};
-		};
+			}
+		}
 		
 		model.addAttribute("pageNum", pageNum);
 		if (result > 0) {
