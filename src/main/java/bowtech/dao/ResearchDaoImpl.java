@@ -67,5 +67,19 @@ public class ResearchDaoImpl implements ResearchDao {
 	public void itemInsert(ResearchItem item) {
 		session.insert("item.itemInsert", item);
 	}
+	
+	public int getitemTotal(int rs_no) {
+		int total = 0;
+		try {
+			total = session.selectOne("item.itemTotal", rs_no);
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return total;
+	}
+
+	public List<ResearchItem> itemSelect(int rs_no) {
+		return session.selectList("item.itemSelect", rs_no);
+	}
 
 }

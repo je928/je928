@@ -55,7 +55,7 @@
 						<c:forEach var="research" items="${list}">
 						<tr>
 							<td>${no}</td>
-							<td class="tl"><a href="researchView.do?rs_no=1&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}" class="on">${research.rs_subject}</a></td>
+							<td class="tl"><a href="researchView.do?rs_no=${research.rs_no}&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}" class="on">${research.rs_subject}</a></td>
 							<td>${research.rs_start_date}</td>
 							<td>${research.rs_end_date}</td>
 							<c:set var="day" value="${bs.newday()}"></c:set>

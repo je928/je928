@@ -56,4 +56,12 @@ public class ResearchServiceImpl implements ResearchService {
 		rd.itemInsert(item);
 	}
 
+	public int getitemTotal(int rs_no) {
+		return rd.getitemTotal(rs_no);
+	}
+	
+	public List<ResearchItem> itemSelect(int rs_no) {
+		return rd.itemSelect(rs_no);
+	}
+
 }

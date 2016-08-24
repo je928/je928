@@ -18,5 +18,7 @@ public interface ResearchService {
 	void questionInsert(ResearchQuestion question);
 	int insertIno();
 	void itemInsert(ResearchItem item);
+	int getitemTotal(int rs_no);
+	List<ResearchItem> itemSelect(int rs_no);
 
 }

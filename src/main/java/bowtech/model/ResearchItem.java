@@ -6,7 +6,6 @@ public class ResearchItem {
 
 	private int i_no;
 	private int q_no;
-	private int rs_no;
 	private String i_title1;
 	private String i_title2;
 	private String i_title3;
@@ -17,7 +16,8 @@ public class ResearchItem {
 	private List<String> i_title3_list;
 	private List<String> i_title4_list;
 	private List<String> i_title5_list;
-
+	private String q_subject;
+	
 	public int getI_no() {
 		return i_no;
 	}
@@ -32,14 +32,6 @@ public class ResearchItem {
 
 	public void setQ_no(int q_no) {
 		this.q_no = q_no;
-	}
-
-	public int getRs_no() {
-		return rs_no;
-	}
-
-	public void setRs_no(int rs_no) {
-		this.rs_no = rs_no;
 	}
 
 	public String getI_title1() {
@@ -121,5 +113,14 @@ public class ResearchItem {
 	public void setI_title5_list(List<String> i_title5_list) {
 		this.i_title5_list = i_title5_list;
 	}
+	
+	public String getQ_subject() {
+		return q_subject;
+	}
+
+	public void setQ_subject(String q_subject) {
+		this.q_subject = q_subject;
+	}
+
 
 }

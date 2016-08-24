@@ -6,7 +6,6 @@
 	<resultMap id="ItemResult" type="item">
 		<result property="i_no" column="i_no"/>
 		<result property="q_no" column="q_no"/>
-		<result property="rs_no" column="rs_no"/>
 		<result property="i_num1" column="i_num1"/>
 		<result property="i_num2" column="i_num2"/>
 		<result property="i_num3" column="i_num3"/>
@@ -24,7 +23,15 @@
   	</select>
   	
   	<insert id="itemInsert" parameterType="item">
-  		insert into bow_rs_item values(#{i_no},#{q_no},#{rs_no},#{i_title1},#{i_title2},#{i_title3},#{i_title4},#{i_title5})
+  		insert into bow_rs_item values(#{i_no},#{q_no},#{i_title1},#{i_title2},#{i_title3},#{i_title4},#{i_title5})
   	</insert>
+  	
+  	<select id="itemTotal" parameterType="Integer" resultType="Integer">
+		select count(*) from bow_rs_item i, bow_rs_question q, bow_research r where r.rs_no=q.rs_no and q.q_no=i.q_no and q.rs_no=#{rs_no}
+	</select>
+  	
+  	<select id="itemSelect" parameterType="Integer" resultMap="ItemResult">
+  		select i.*, q.q_subject as q_subject from bow_rs_item i, bow_rs_question q, bow_research r where r.rs_no=q.rs_no and q.q_no=i.q_no and q.rs_no=#{rs_no}
+  	</select>
 	
 </mapper>

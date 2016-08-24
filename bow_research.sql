@@ -20,7 +20,6 @@ create table bow_rs_question (
 create table bow_rs_item (
 	i_no number primary key,
 	q_no number,
-	rs_no number,
 	i_title1 varchar2(200),
 	i_title2 varchar2(200),
 	i_title3 varchar2(200),

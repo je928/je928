@@ -38,34 +38,35 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td colspan="5" class="tl"><strong>제목입니다.</strong></td>
+							<td colspan="5" class="tl"><strong>${research.rs_subject}</strong></td>
 						</tr>
 						<tr>
 							<th>시작일</th>
-							<td class="tl">2013-12-12</td>
+							<td class="tl">${research.rs_start_date}</td>
 							<th>종료일</th>
-							<td class="tl">2013-12-12</td>
+							<td class="tl">${research.rs_end_date}</td>
 							<th>결과확인</th>
 							<td class="tl"><img src="images/sub/btn/btn_view.gif" alt="결과보기" /></td>
 						</tr>
 						<tr>
 							<th>문항수</th>
-							<td colspan="5" class="tl">5개</td>
+							<td colspan="5" class="tl">${research.rs_que_cnt}개</td>
 						</tr>
 						<tr>
 							<td colspan="6" class="tl">
+							<c:set var="no" value="${itemListTotal-(itemListTotal-1)}" />
+							<c:forEach var="item" items="${itemList}">
 								<div class="research">
-									<p>1. 위생불량 납품단절 편함</p>
-									<ul>
-										<li>① 매우그렇다</li>
-										<li>② 조금그렇다</li>
-										<li>③ 그렇다</li>
-										<li>④ 조금 아니다</li>
-										<li>⑤ 매우 아니다</li>
-										<li>선택사유 <input type="text" id="aa" name="aa" class="inp" style="width: 200px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; width:205px; border:solid 1px #c6c6c6; color:#666; padding:3px;" />
-										</li>
-									</ul>
+									<p>항문${no}. ${item.q_subject}</p>
+									①&nbsp;${item.i_title1} <br>
+									②&nbsp;${item.i_title2} <br>
+									③&nbsp;${item.i_title3} <br>
+									④&nbsp;${item.i_title4} <br>
+									⑤&nbsp;${item.i_title5} <br>
+									<p>
 								</div>
+							<c:set var="no" value="${no+1}"></c:set>
+							</c:forEach>
 							</td>
 						</tr>
 						<tr>

@@ -49,9 +49,9 @@
     	update bow_research set rs_readcount=rs_readcount+1 where rs_no=#{rs_no}
     </update>
   	
-  	<!-- <select id="researchSelect" parameterType="Integer" resultType="research">
-  		select b.*, m.m_nick as m_nick, vsize(brd_content) as byteSize from bow_board b, bow_member m where b.brd_no=#{brd_no} and b.m_no=m.m_no
-	</select> -->
+  	<select id="researchSelect" parameterType="Integer" resultType="research">
+  		select r.*, m.m_nick as m_nick from bow_research r, bow_member m where r.rs_no=#{rs_no} and r.rs_writer=m.m_no
+	</select>
   	
   	<select id="insertNo" resultType="Integer">
   		select nvl(max(rs_no),0)+1 from bow_research

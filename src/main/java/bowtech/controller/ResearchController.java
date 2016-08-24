@@ -84,6 +84,29 @@ public class ResearchController {
 			searchTxt = "";
 		}
 		rs.researchHit(rs_no);
+		Research research = rs.researchSelect(rs_no);
+		String subject_replace = research.getRs_subject().replaceAll("<", "&lt;");
+		String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
+		research.setRs_subject(subject_replace_finish);
+		if (searchTxt != null) {
+			String subject_txt = research.getRs_subject().replaceAll(searchTxt, "<span class='subjecttxt'>"+searchTxt+"</span>");
+			research.setRs_subject(subject_txt);
+		}
+		
+		research.setSearchType(searchType);
+		research.setSearchTxt(searchTxt);
+		if (research.getSearchType() != null) {
+			model.addAttribute("searchType", research.getSearchType());
+			model.addAttribute("searchTxt", research.getSearchTxt());
+		}
+		
+		int itemListTotal = rs.getitemTotal(rs_no);
+		List<ResearchItem> itemList = rs.itemSelect(rs_no);
+		
+		model.addAttribute("research", research);
+		model.addAttribute("itemListTotal", itemListTotal);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pgm", "../research/researchView.jsp");
 		return "module/main";
 	}
@@ -128,7 +151,6 @@ public class ResearchController {
 			int ino = rs.insertIno();
 			item.setI_no(ino);
 			item.setQ_no(qno2+i);
-			item.setRs_no(number);
 			item.setI_title1(item1List.get(i));
 			item.setI_title2(item2List.get(i));
 			item.setI_title3(item3List.get(i));

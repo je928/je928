@@ -63,11 +63,13 @@ public class BoardController {
 
 		BoardPagingBean pb = new BoardPagingBean(nowPage, total);
 		List<Board> list = bs.list(board);
+		// 태그 치환
 		for(int i=0; i<list.size(); i++) {
 			String subject_replace = list.get(i).getBrd_subject().replaceAll("<", "&lt;");
 			String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
 			list.get(i).setBrd_subject(subject_replace_finish);
 		}
+		// 태그 치환 끝
 		model.addAttribute("list", list);
 		model.addAttribute("pb", pb);
 
@@ -90,12 +92,14 @@ public class BoardController {
 		}
 		bs.boardHit(brd_no);
 		Board board = bs.boardSelect(brd_no);
+		// 태그 치환
 		String subject_replace = board.getBrd_subject().replaceAll("<", "&lt;");
 		String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
 		board.setBrd_subject(subject_replace_finish);
 		String content_replace = board.getBrd_content().replaceAll("<", "&lt;");
 		String content_replace_finish = content_replace.replaceAll(">", "&gt;");
 		board.setBrd_content(content_replace_finish);
+		// 태그 치환 끝
 		List<BoardReply> reList = bs.selectReply(brd_no);
 		List<BoardFile> fileList = bs.selectFile(brd_no);
 		int replyCount = bs.replyCount(brd_no);
