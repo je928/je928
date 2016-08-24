@@ -31,13 +31,15 @@
 		$("#startDate").datepicker({
 			showOn: "button",
 			buttonImage: "images/sub/btn/ico_data.gif",
-			buttonImageOnly: true
+			buttonImageOnly: true,
+			minDate: 0
 		});
 		
 		$("#endDate").datepicker({
 			showOn: "button",
 			buttonImage: "images/sub/btn/ico_data.gif",
-			buttonImageOnly: true
+			buttonImageOnly: true,
+			minDate: 0
 		});
 	});
 	
@@ -99,7 +101,7 @@
 						<tr>
 							<th>제목</th>
 							<td colspan="5" class="tl">
-								<input type="text" id="rs_subject" name="rs_subject" class="inp" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" />
+								<input type="text" id="rs_subject" name="rs_subject" class="inp" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" autofocus="autofocus" />
 							</td>
 						</tr>
 						<tr>

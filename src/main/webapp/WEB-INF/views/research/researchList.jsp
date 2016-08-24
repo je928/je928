@@ -5,6 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>research</title>
+<script type="text/javascript">
+	function locate(pageNum){
+		var searchType = document.getElementById("searchType");
+		var searchTxt = document.getElementById("searchTxt");
+		location.href="researchList.do?pageNum="+pageNum+"&searchType="+searchType.value+"&searchTxt="+searchTxt.value;
+	}
+</script>
 </head>
 <body>
 
@@ -44,15 +51,32 @@
 							<th>첨부</th>
 							<th>결과확인</th>
 						</tr>
+						<c:set var="no" value="${pb.no}" />
+						<c:forEach var="research" items="${list}">
 						<tr>
-							<td>10</td>
-							<td class="tl"><a href="researchView.do?rs_no=1&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}"" class="on">내용입니다.</a></td>
-							<td>2013-01-02</td>
-							<td>2013-01-02</td>
-							<td>완료</td>
+							<td>${no}</td>
+							<td class="tl"><a href="researchView.do?rs_no=1&pageNum=${pb.nowPage}&searchType=${searchType}&searchTxt=${searchTxt}" class="on">${research.rs_subject}</a></td>
+							<td>${research.rs_start_date}</td>
+							<td>${research.rs_end_date}</td>
+							<c:set var="day" value="${bs.newday()}"></c:set>
+							<td>
+							<c:if test="${day > research.rs_end_date}">
+								완료
+							</c:if>
+							<c:if test="${day <= research.rs_end_date}">
+								진행중
+							</c:if>
+							</td>
 							<td><img src="images/sub/btn/btn_pdf.gif" alt="pdf" /></td>
 							<td><a href="#"><img src="images/sub/btn/btn_view.gif" alt="결과보기" /></a></td>
 						</tr>
+						<c:set var="no" value="${no-1}"></c:set>
+						</c:forEach>
+						<c:if test="${empty list}">
+						<tr>
+							<td colspan="7">데이터가 없습니다.</td>
+						</tr>
+						</c:if>
 					</tbody>
 				</table>
 				<div class="panel-footer2 text-center" style="height: 0px; border-top:0px; background-color: white; margin-bottom: 29px; line-height: 1.8;">
@@ -65,7 +89,7 @@
 						<div class="col">
 							<!-- paging-->
 							<ul class="paging">
-								<%-- <c:if test="${pb.startPage > pb.pagePerBlock}"> --%>
+								<c:if test="${pb.startPage > pb.pagePerBlock}">
 								<li>
 									<a href="javascript:locate(1)" title="맨 처음 페이지로 가기">
 										<img src="images/sub/btn/pre_01.gif" alt="맨 처음 페이지로 가기" />
@@ -76,7 +100,7 @@
 										<img src="images/sub/btn/pre.gif" alt="이전 페이지로 가기" />
 									</a>
 								</li>
-								<%-- </c:if> --%>
+								</c:if>
 								<c:forEach var="i" begin="${pb.startPage}" end="${pb.endPage}">
 								<c:if test="${i eq pb.nowPage}">
 									<li><span title="현재페이지"><a href="#" class="on">${i}</a></span></li>
@@ -85,7 +109,7 @@
 									<li><a href="javascript:locate(${i})" title="${i}페이지">${i}</a></li>
 								</c:if>
 								</c:forEach>
-								<%-- <c:if test="${pb.totalPage > pb.endPage}"> --%>
+								<c:if test="${pb.totalPage > pb.endPage}">
 								<li>
 									<a href="javascript:locate(${pb.nowPage+1})" title="다음 페이지로 가기">
 										<img src="images/sub/btn/next.gif" alt="다음 페이지" />
@@ -96,7 +120,7 @@
 										<img src="images/sub/btn/next_01.gif" alt="마지막 페이지" />
 									</a>
 								</li>
-								<%-- </c:if> --%>
+								</c:if>
 							</ul>
 							<!-- //paging-->
 						</div>
@@ -106,16 +130,20 @@
 					<div class="search_box">
 						<select id="searchType" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; padding-right:15px; line-height:1;">
 							<c:if test="${searchType eq 'rs_subject'}">
-								<option value="subject" selected="selected">제목</option>
+								<option value="rs_subject" selected="selected">제목</option>
 							</c:if>
 							<c:if test="${searchType ne 'rs_subject'}">
-								<option value="subject">제목</option>
+								<option value="rs_subject">제목</option>
 							</c:if>
 						</select>
 						<input type="text" id="searchTxt" name="searchTxt" value="${searchTxt}" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; width:205px; border:solid 1px #c6c6c6; color:#666; padding:3px;" />
-						<a href="#">
+						<a href="javascript:locate(1);">
 							<img src="images/sub/btn/btn_serch.gif" alt="검색" />
 						</a>
+						<c:if test="${searchTxt != ''}">
+						<p>
+						<div> <a href="researchList.do" style="text-decoration: underline;">목록</a> </div>
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -9177,4 +9177,9 @@ h4 {
 	border-bottom: 1px solid #D1CDF4;
 }
 
+.subjecttxt {
+	color: red;
+	font-weight: bold;
+}
+
 /* ----------------------------------------------------------------------- */

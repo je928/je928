@@ -86,7 +86,7 @@
 						<c:set var="no" value="${pb.no}" />
 						<c:forEach var="brd" items="${list}">
 						<tr>
-							<td>${no }</td>
+							<td>${no}</td>
 			<!-- ***************************** 제목 *****************************  -->
 							<c:if test="${brd.brd_del_yn == 'n'}">
 							<td class="text-left">

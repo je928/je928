@@ -13,6 +13,7 @@ import bowtech.model.Research;
 import bowtech.model.ResearchItem;
 import bowtech.model.ResearchQuestion;
 import bowtech.service.BoardPagingBean;
+import bowtech.service.BoardService;
 import bowtech.service.ResearchService;
 
 @Controller
@@ -20,6 +21,9 @@ public class ResearchController {
 	
 	@Autowired
 	private ResearchService rs;
+	
+	@Autowired
+	private BoardService bs;
 	
 	@RequestMapping(value = "researchList")
 	public String list(Research research, String pageNum, String searchType, String searchTxt, Model model) {
@@ -45,19 +49,28 @@ public class ResearchController {
 		research.setSearchType(searchType);
 		research.setSearchTxt(searchTxt);
 		
-		int total = 10;
-		/*rs.getTotal(research);*/
+		int total = rs.getTotal(research);
 		
 		BoardPagingBean pb = new BoardPagingBean(nowPage, total);
-		
-/*		model.addAttribute("list", list);
-*/		model.addAttribute("pb", pb);
+		List<Research> list = rs.list(research);
+		for(int i=0; i<list.size(); i++) {
+			String subject_replace = list.get(i).getRs_subject().replaceAll("<", "&lt;");
+			String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
+			list.get(i).setRs_subject(subject_replace_finish);
+			if (searchTxt != null) {
+				String subject_txt = list.get(i).getRs_subject().replaceAll(searchTxt, "<span class='subjecttxt'>"+searchTxt+"</span>");
+				list.get(i).setRs_subject(subject_txt);
+			}
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pb", pb);
 		
 		if (research.getSearchType() != null) {
 			model.addAttribute("searchType", research.getSearchType());
 			model.addAttribute("searchTxt", research.getSearchTxt());
 		}
-
+		
+		model.addAttribute("bs", bs);
 		model.addAttribute("pgm", "../research/researchList.jsp");
 		return "module/main";
 	}
@@ -107,12 +120,10 @@ public class ResearchController {
 				question.setRs_no(number);
 				question.setQ_subject(que);
 				rs.questionInsert(question);
-				
 			}
 		}
 		
 		int qno2 = qno - questionList.size() + 1;
-		System.out.println(qno2);
 		for(int i=0; i<questionList.size(); i++) {
 			int ino = rs.insertIno();
 			item.setI_no(ino);
@@ -125,7 +136,6 @@ public class ResearchController {
 			item.setI_title5(item5List.get(i));
 			rs.itemInsert(item);
 		}
-		
 		model.addAttribute("pageNum", pageNum);
 		if (result > 0) {
 			return "redirect:researchView.do?rs_no=" + research.getRs_no();

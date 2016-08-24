@@ -14,6 +14,7 @@ public class Research {
 	private Date rs_reg_date;
 	private Date rs_update_date;
 	private String rs_del_yn;
+	private String m_nick;
 
 	// 조회용
 	private int startRow;
@@ -100,6 +101,14 @@ public class Research {
 
 	public void setRs_del_yn(String rs_del_yn) {
 		this.rs_del_yn = rs_del_yn;
+	}
+	
+	public String getM_nick() {
+		return m_nick;
+	}
+
+	public void setM_nick(String m_nick) {
+		this.m_nick = m_nick;
 	}
 	
 	public int getStartRow() {

@@ -670,6 +670,9 @@
 
 .tbl_type01 td.tl {
 	text-align: left;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .tbl_type02 {
