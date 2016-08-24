@@ -102,15 +102,15 @@
 	    }
 	}
 	
-	function removeTag(str) {
+	/* function removeTag(str) {
 		return str.replace(/(<([^>]+)>)/gi, "");
-	}
+	} // 태그 아예 지워버리기. */
 	
 	function chk() {
 		
-		var before_subject = frm.brd_subject.value;
+		/* var before_subject = frm.brd_subject.value;
 		var after_subject = removeTag(before_subject);
-		frm.brd_subject.value = after_subject;
+		frm.brd_subject.value = after_subject; */
 		
 		var fmt2 = /^\s\s*$/;
 		
@@ -121,9 +121,9 @@
 			return false;
 		}
 		
-		var before_content = frm.brd_content.value;
+		/* var before_content = frm.brd_content.value;
 		var after_content = removeTag(before_content);
-		frm.brd_content.value = after_content;
+		frm.brd_content.value = after_content; */
 		
 		if (fmt2.exec(frm.brd_content.value) || frm.brd_content.value == "") {
 			alert ("내용을 입력하세요");

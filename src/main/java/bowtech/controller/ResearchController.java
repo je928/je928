@@ -94,30 +94,36 @@ public class ResearchController {
 
 		List<String> questionList = question.getQ_subject_list();
 		List<String> item1List = item.getI_title1_list();
-		List<String> item2List = item.getI_title1_list();
-		List<String> item3List = item.getI_title1_list();
-		List<String> item4List = item.getI_title1_list();
-		List<String> item5List = item.getI_title1_list();
+		List<String> item2List = item.getI_title2_list();
+		List<String> item3List = item.getI_title3_list();
+		List<String> item4List = item.getI_title4_list();
+		List<String> item5List = item.getI_title5_list();
 		
+		int qno = 0;
 		if (questionList != null) {
 			for (String que : questionList) {
-				int qno = rs.insertQno();
+				qno = rs.insertQno();
 				question.setQ_no(qno);
 				question.setRs_no(number);
 				question.setQ_subject(que);
 				rs.questionInsert(question);
 				
-				if(item1List != null) {
-					for (String item1 : item1List) {
-						int ino = rs.insertIno();
-						item.setI_no(ino);
-						item.setQ_no(qno);
-						item.setRs_no(number);
-						item.setI_title1(item1);
-						rs.itemInsert(item);
-					}
-				}
 			}
+		}
+		
+		int qno2 = qno - questionList.size() + 1;
+		System.out.println(qno2);
+		for(int i=0; i<questionList.size(); i++) {
+			int ino = rs.insertIno();
+			item.setI_no(ino);
+			item.setQ_no(qno2+i);
+			item.setRs_no(number);
+			item.setI_title1(item1List.get(i));
+			item.setI_title2(item2List.get(i));
+			item.setI_title3(item3List.get(i));
+			item.setI_title4(item4List.get(i));
+			item.setI_title5(item5List.get(i));
+			rs.itemInsert(item);
 		}
 		
 		model.addAttribute("pageNum", pageNum);

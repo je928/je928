@@ -43,14 +43,13 @@
 	
 	$(document).ready(function() {
 		var cntIndex = $('#questionview div').length;
-		alert(cntIndex);
 		$('#rs_que_cnt').change(function() {
 			var a = $(this).val();
 			$(".researchdiv").remove();
 			for(var i=1; i<a; i++) {
 				$('#questionview').append(
 					'<div id="question" class="researchdiv">'+
-					'문항'+(i+1)+'. <input type="text" id="q_subject" name="q_subject_list['+ i +']" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요."/><br><br>'+
+					'문항'+(i+1)+'. <input type="text" id="q_subject" name="q_subject_list['+ i +']" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요." /><br><br>'+
 					'① &nbsp;<input type="text" id="i_title1" name="i_title1_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
 					'②  &nbsp;<input type="text" id="i_title2" name="i_title2_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
 					'③ &nbsp;<input type="text" id="i_title3" name="i_title3_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
@@ -61,22 +60,6 @@
 				);
 			};
 		});
-		/* $('#addFile').click(function() {
-			var fileIndex = $('#fileview tr').length;
-			var totalcount = 5 - fileCount + count;
-
-			if(fileIndex < totalcount) {
-				$('#fileview').append(
-					'<tr><td>'+
-					'<input type="file" name="files['+ fileIndex +']" style="margin-bottom: 3px;"/></td>'+
-					'<td><button type="button" style="font-size: 5px; padding: 1px 2px 2px 2px; id="fileremove['+ fileIndex +']" class="btn btn-sm btn-default fileremove">'+
-					'<i class="glyphicon glyphicon-remove"></i></button>'+
-					'</td></tr>'
-				);
-			}else {
-				alert("파일 첨부는 총 5개까지 할 수 있습니다.");
-			}
-		}); */
 	});
 </script>
 </head>
@@ -144,13 +127,18 @@
 									<option value="3">3개</option>
 									<option value="4">4개</option>
 									<option value="5">5개</option>
+									<option value="6">6개</option>
+									<option value="7">7개</option>
+									<option value="8">8개</option>
+									<option value="9">9개</option>
+									<option value="10">10개</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="6" id="questionview" class="tl">
 								<div id="question" class="research">
-									문항1. <input type="text" id="q_subject" name="q_subject_list[0]" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요."/><br><br>
+									문항1. <input type="text" id="q_subject" name="q_subject_list[0]" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요." /><br><br>
 									① &nbsp;<input type="text" id="i_title1" name="i_title1_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
 									②  &nbsp;<input type="text" id="i_title2" name="i_title2_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
 									③ &nbsp;<input type="text" id="i_title3" name="i_title3_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
