@@ -3,6 +3,7 @@ package bowtech.model;
 public class BoardReply {
 	private int re_no;
 	private String re_content;
+	private String up_content;	
 	private String re_reg_date;
 	private String re_update_date;
 	private String re_del_yn;
@@ -10,7 +11,7 @@ public class BoardReply {
 	private int m_no;
 	private String m_nick;
 	private int relength;
-	
+
 	public int getRe_no() {
 		return re_no;
 	}
@@ -27,6 +28,14 @@ public class BoardReply {
 		this.re_content = re_content;
 	}
 
+	public String getUp_content() {
+		return up_content;
+	}
+
+	public void setUp_content(String up_content) {
+		this.up_content = up_content;
+	}
+	
 	public String getRe_reg_date() {
 		return re_reg_date;
 	}

@@ -16,7 +16,7 @@
 	</resultMap>
 
 	<select id="selectReply" resultType="reply" parameterType="Integer">
-		select re_no, re_content, to_char(re_reg_date, 'yyyy.mm.dd. hh24:mi') as
+		select re_no, re_content, re_content as up_content, to_char(re_reg_date, 'yyyy.mm.dd. hh24:mi') as
 		re_reg_date, m.m_no, m.m_nick, length(re_content) as relength from bow_board_Re b, (select m_no, m_nick from bow_member where m_del_yn='n') m where
 		b.m_no = m.m_no and re_del_yn = 'n' and brd_no = #{brd_no} order by re_no
 	</select>

@@ -16,7 +16,6 @@
 			}
 		}else {
 			var fmt2 = /^\s\s*$/;
-			
 			if (fmt2.test(refrm.re_content.value) || refrm.re_content.value == "") {
 				alert("댓글을 입력해 주세요.");
 				refrm.re_content.value="";
@@ -28,14 +27,6 @@
 			}
 		}
 		return false;
-	}
-	
-	function upSubmit(obj) {
-		var fmt2 = /^\s\s*$/;
-		var a = obj.previousSibling;
-		alert(a);
-		
-		return true;
 	}
 	
 	function deleteRpChk(re_no, brd_no, pageNum) {
@@ -80,6 +71,18 @@
 			$(this).parent().parent().parent().nextAll(".up").find("textarea").focus();
 			var upup_content = $(this).parent().parent().parent().nextAll(".up").find("textarea").val().length;
 			$(this).parent().parent().parent().nextAll(".up").find("textarea").next().next().text(upup_content + " / 300 자");
+			$(this).parent().parent().parent().nextAll(".up").find("input").click(function(){
+				var fmt2 = /^\s\s*$/;
+				var a = $(this).prev().val();
+				if (fmt2.test(a) || a == "") {
+					alert("댓글을 입력해 주세요.");
+					$(this).prev().val("");
+					$(this).prev().focus();
+					$(this).next().text("0 / 300 자");
+				}else {
+					$(this).parent().submit();
+				}
+			});
 		});
 		$('.btnupup').click(function(){
 			$(this).parent().parent().parent().nextAll(".up").toggle("slow");
@@ -97,13 +100,7 @@
 	    var str2 = "";
 	
 	    for (var i = 0; i < strLen; i++) {
-	        /* oneChar = strValue.charAt(i);
-	        if (escape(oneChar) == '%0A') {
-	        	totalLen += 1;
-	        }else { */
-	        	totalLen++;
-	        /* } */
-	
+	    	totalLen++;
 	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
 	        if (totalLen <= maxLen) {
 	            len = i + 1;
@@ -131,7 +128,7 @@
 	    var str2 = "";
 	
 	    for (var i = 0; i < strLen; i++) {
-	        oneChar = strValue.charAt(i);
+	    	oneChar = strValue.charAt(i);
 	        totalLen++;
 	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
 	        if (totalLen <= maxLen) {
@@ -273,21 +270,21 @@
 									</div>
 								</div>
 								<blockquote style="word-break:break-word;">
-									<p style="white-space:pre-wrap; word-wrap:break-word;"> ${re.re_content} </p>
+									<p style="white-space:pre-wrap; word-wrap:break-word;"><span id="contentreset"> ${re.re_content} </span></p>
 								</blockquote>
 								<div class="up">
 									<blockquote>
-										<form action="updateReply.do" id="upfrm" name="upfrm" onsubmit="return upSubmit(this)">
+										<form action="updateReply.do" id="upfrm" name="upfrm">
 											<input type="hidden" name="no" value="${sessionScope.no}">
 											<input type="hidden" name="re_no" value="${re.re_no}">											
 											<input type="hidden" name="brd_no" value="${board.brd_no}">
 											<input type="hidden" name="pageNum" value="${pageNum}">
 										<c:if test="${sessionScope.no > 0}">
-											<textarea style="border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" oninput="up_contentChk(this, 300)" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
-											<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="수정">
+											<textarea style="border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" oninput="up_contentChk(this, 300)" id="up_content" name="re_content" required>${re.up_content}</textarea>&nbsp;
+											<input type="button" id="upSubmit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="수정">
 											<div class="text-right" style="margin-right: 105px;" id="counter2"></div>
 										</c:if>
-									</form>
+										</form>
 									</blockquote>
 								</div>
 							</div>
