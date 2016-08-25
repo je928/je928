@@ -85,13 +85,16 @@ public class ResearchController {
 		}
 		rs.researchHit(rs_no);
 		Research research = rs.researchSelect(rs_no);
+		// 태그 치환
 		String subject_replace = research.getRs_subject().replaceAll("<", "&lt;");
 		String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
 		research.setRs_subject(subject_replace_finish);
+		// 태그 치환 끝
+		
 		if (searchTxt != null) {
 			String subject_txt = research.getRs_subject().replaceAll(searchTxt, "<span class='subjecttxt'>"+searchTxt+"</span>");
 			research.setRs_subject(subject_txt);
-		}
+		}// 검색어 글자 색상 바꾸기
 		
 		research.setSearchType(searchType);
 		research.setSearchTxt(searchTxt);

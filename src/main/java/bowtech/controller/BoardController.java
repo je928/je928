@@ -100,8 +100,8 @@ public class BoardController {
 		String content_replace_finish = content_replace.replaceAll(">", "&gt;");
 		board.setBrd_content(content_replace_finish);
 		// 태그 치환 끝
-		List<BoardReply> reList = bs.selectReply(brd_no);
 		
+		List<BoardReply> reList = bs.selectReply(brd_no);
 		// 리플 태그 치환, 리플 수정 내용 맨 앞에 글자가 엔터일 시 치환 
 		for(int i=0; i<reList.size(); i++) {
 			String re_content_replace = reList.get(i).getRe_content().replaceAll("<", "&lt;");
@@ -207,12 +207,14 @@ public class BoardController {
 	@RequestMapping(value = "updateForm")
 	public String updateForm(int brd_no, String pageNum, Model model) {
 		Board board = bs.boardSelect(brd_no);
+		// 리플 수정 내용 맨 앞에 글자가 엔터일 시 치환 
 		char firstcontentchar = board.getBrd_content().charAt(0);
 		String firstcontentstring = String.valueOf(firstcontentchar);
 		if(firstcontentstring.equals("\r")) {
 			String brdcontent = board.getBrd_content().replaceFirst(firstcontentstring, "\n");
 			board.setBrd_content(brdcontent);
 		}
+		// 치환 끝
 		List<BoardFile> fileList = bs.selectFile(brd_no);
 		int fileCount = bs.fileCount(brd_no);
 		model.addAttribute("board", board);

@@ -57,7 +57,7 @@
 							<c:set var="no" value="${itemListTotal-(itemListTotal-1)}" />
 							<c:forEach var="item" items="${itemList}">
 								<div class="research">
-									<p>항문${no}. ${item.q_subject}</p>
+									<p>문항${no}. ${item.q_subject}</p>
 									①&nbsp;${item.i_title1} <br>
 									②&nbsp;${item.i_title2} <br>
 									③&nbsp;${item.i_title3} <br>
