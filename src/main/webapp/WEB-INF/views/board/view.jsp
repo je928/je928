@@ -15,9 +15,27 @@
 				return false;
 			}
 		}else {
-			return true;
+			var fmt2 = /^\s\s*$/;
+			
+			if (fmt2.test(refrm.re_content.value) || refrm.re_content.value == "") {
+				alert("댓글을 입력해 주세요.");
+				refrm.re_content.value="";
+				counter.innerHTML = "0 / 300 자";
+				refrm.re_content.focus();
+				return false;
+			}else {
+				return true;
+			}
 		}
 		return false;
+	}
+	
+	function upSubmit(obj) {
+		var fmt2 = /^\s\s*$/;
+		var a = obj.previousSibling;
+		alert(a);
+		
+		return true;
 	}
 	
 	function deleteRpChk(re_no, brd_no, pageNum) {
@@ -79,12 +97,12 @@
 	    var str2 = "";
 	
 	    for (var i = 0; i < strLen; i++) {
-	        oneChar = strValue.charAt(i);
+	        /* oneChar = strValue.charAt(i);
 	        if (escape(oneChar) == '%0A') {
 	        	totalLen += 1;
-	        }else {
+	        }else { */
 	        	totalLen++;
-	        }
+	        /* } */
 	
 	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
 	        if (totalLen <= maxLen) {
@@ -114,12 +132,7 @@
 	
 	    for (var i = 0; i < strLen; i++) {
 	        oneChar = strValue.charAt(i);
-	        if (escape(oneChar) == '%0A') {
-	        	totalLen += 1;
-	        }else {
-	        	totalLen++;
-	        }
-	
+	        totalLen++;
 	        // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
 	        if (totalLen <= maxLen) {
 	            len = i + 1;
@@ -264,13 +277,13 @@
 								</blockquote>
 								<div class="up">
 									<blockquote>
-										<form action="updateReply.do" id="upfrm" name="upfrm" onsubmit="return rpSubmit(${sessionScope.no})">
+										<form action="updateReply.do" id="upfrm" name="upfrm" onsubmit="return upSubmit(this)">
 											<input type="hidden" name="no" value="${sessionScope.no}">
 											<input type="hidden" name="re_no" value="${re.re_no}">											
 											<input type="hidden" name="brd_no" value="${board.brd_no}">
 											<input type="hidden" name="pageNum" value="${pageNum}">
 										<c:if test="${sessionScope.no > 0}">
-											<textarea style="resuze: none; border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" oninput="up_contentChk(this, 300)" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
+											<textarea style="border:solid 1px; width:86%; vertical-align:top;" rows="3" cols="80" oninput="up_contentChk(this, 300)" id="up_content" name="re_content" required>${re.re_content}</textarea>&nbsp;
 											<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="수정">
 											<div class="text-right" style="margin-right: 105px;" id="counter2"></div>
 										</c:if>
@@ -298,16 +311,16 @@
 				<div class="container re_bottom">
 					<div class="row">
 						<div class="replym_w">
-							<form action="writeReply.do" name="frm" onsubmit="return rpSubmit(${sessionScope.no})">
+							<form action="writeReply.do" name="refrm" onsubmit="return rpSubmit(${sessionScope.no})">
 							<input type="hidden" name="m_no" value="${sessionScope.no}">
 							<input type="hidden" name="brd_no" value="${board.brd_no}">
 							<input type="hidden" name="pageNum" value="${pageNum}">
 							<c:if test="${sessionScope.no == null}">					
-							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" maxlength="300" id="re_content" name="re_content" placeholder="로그인이 필요한 서비스입니다. 로그인 하시겠습니까?" onclick="return rpSubmit(${sessionScope.no})"></textarea>&nbsp;
+							<textarea style="border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" maxlength="300" id="re_content" name="re_content" placeholder="로그인이 필요한 서비스입니다. 로그인 하시겠습니까?" onclick="return rpSubmit(${sessionScope.no})"></textarea>&nbsp;
 							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
 							</c:if>
 							<c:if test="${sessionScope.no > 0}">					
-							<textarea style="resuze: none; border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" oninput="re_contentChk(this, 300)" id="re_content" name="re_content" placeholder="댓글을 입력해 주세요." required></textarea>&nbsp;
+							<textarea style="border:solid 1px; width:88%; vertical-align:top;" rows="3" cols="80" oninput="re_contentChk(this, 300)" id="re_content" name="re_content" placeholder="댓글을 입력해 주세요." required></textarea>&nbsp;
 							<input type="submit" class="btn btn-sm btn-default" style="height:80px; width:80px;" value="등록">
 							<div class="text-right"><span id="counter" style="margin-right: 95px;">0 / 300 자</span></div>
 							</c:if>

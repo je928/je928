@@ -101,6 +101,15 @@ public class BoardController {
 		board.setBrd_content(content_replace_finish);
 		// 태그 치환 끝
 		List<BoardReply> reList = bs.selectReply(brd_no);
+		
+		// 리플 내용 맨 앞에 글자가 엔터일 시 치환, 리플 태그 치환
+		for(int i=0; i<reList.size(); i++) {
+			String re_content_replace = reList.get(i).getRe_content().replaceAll("<", "&lt;");
+			String re_content_replace_finish = re_content_replace.replaceAll(">", "&gt;");
+			reList.get(i).setRe_content(re_content_replace_finish);
+		}
+		// 치환 끝
+		
 		List<BoardFile> fileList = bs.selectFile(brd_no);
 		int replyCount = bs.replyCount(brd_no);
 		int refTotal = bs.refTotal(brd_no);
