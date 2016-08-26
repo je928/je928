@@ -1628,6 +1628,19 @@ a.on {
 	padding: 8px 7px 6px 6px;
 }
 
+span.pre_r {
+	font-weight: bold;
+	background: url('../images/sub/btn/btn_right_01.gif' ) no-repeat right top;
+	color: #fff;
+	text-decoration: none;
+	padding: 8px 7px 6px 6px;
+	cursor:pointer;
+}
+
+.plusItem {
+	cursor:pointer;
+}
+
 .bbs_btn .wte_l {
 	background: url('../images/sub/btn/btn_left_02.gif') no-repeat left top;
 	display: inline-block;

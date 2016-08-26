@@ -44,23 +44,86 @@
 	});
 	
 	$(document).ready(function() {
-		var cntIndex = $('#questionview div').length;
-		$('#rs_que_cnt').change(function() {
-			var a = $(this).val();
-			$(".researchdiv").remove();
-			for(var i=1; i<a; i++) {
-				$('#questionview').append(
-					'<div id="question" class="researchdiv">'+
-					'문항'+(i+1)+'. <input type="text" id="q_subject" name="q_subject_list['+ i +']" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요." /><br><br>'+
-					'① &nbsp;<input type="text" id="i_title1" name="i_title1_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
-					'②  &nbsp;<input type="text" id="i_title2" name="i_title2_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
-					'③ &nbsp;<input type="text" id="i_title3" name="i_title3_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
-					'④  &nbsp;<input type="text" id="i_title4" name="i_title4_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
-					'⑤  &nbsp;<input type="text" id="i_title5" name="i_title5_list['+ i +']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
-					'선택사유: <input type="text" id="r_description" name="r_description" class="inp" style="width:400px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; background-color: #EAEAEA;" readonly="readonly"/>'+
-					'</div>'
+		$('#tableid').on('change', '.rs_que_cnt', function(){
+			var cntIndex = $('#rs_que_cnt').val();
+			var divIndex_tot = $('#questionview div').length;
+			var divIndex = divIndex_tot/3;
+			if(divIndex < cntIndex) {
+				var addIndex = divIndex+(cntIndex-divIndex);
+				for(var i=divIndex; i<addIndex; i++) {
+					$('#questionview').append(
+						'<div id="question_div" class="researchdiv">'+
+						'<div id="question">'+
+							'문항'+(i+1)+'. <input type="text" id="q_subject['+i+']" name="q_subject_list['+i+']" class="q_subject" style="width:600px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" required="required" placeholder="질문을 입력해 주세요." /><br><br>'+
+							'① &nbsp;<input type="text" id="i_title1" name="i_title1_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br>'+
+							'②  &nbsp;<input type="text" id="i_title2" name="i_title2_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" />&nbsp;<img src="images/sub/btn/btn_down.gif" alt="선택항목 추가" id="plusItem['+i+']" class="plusItem" /><br>'+
+						'</div>'+
+						'<div>'+
+							'선택사유: <input type="text" id="r_description" name="r_description" class="inp" style="width:400px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; background-color: #EAEAEA;" readonly="readonly"/>'+
+						'</div>'+
+						'</div>'
+						/* '<div id="question" class="researchdiv">'+
+						'문항'+(i+1)+'. <input type="text" id="q_subject['+i+']" name="q_subject_list['+i+']" class="q_subject" style="width:600px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요." /><br><br>'+
+						'① &nbsp;<input type="text" id="i_title1" name="i_title1_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
+						'②  &nbsp;<input type="text" id="i_title2" name="i_title2_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
+						'③ &nbsp;<input type="text" id="i_title3" name="i_title3_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
+						'④  &nbsp;<input type="text" id="i_title4" name="i_title4_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
+						'⑤  &nbsp;<input type="text" id="i_title5" name="i_title5_list['+i+']" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>'+
+						'선택사유: <input type="text" id="r_description" name="r_description" class="inp" style="width:400px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; background-color: #EAEAEA;" readonly="readonly"/>'+
+						'</div>' */
+					);
+				}
+			}else if(divIndex > cntIndex) {
+				var subIndex = divIndex-cntIndex+1;
+				for(var i=1; i<subIndex; i++) {
+					$('#questionview div').last().parent().remove();
+				}
+			}
+		});
+		$("#questionview").on('click', '.plusItem', function(){
+			var a = $(this).parent().find("input").length;
+			if(a < 6) {
+				$(this).parent().append(
+					'③ &nbsp;<input type="text" id="i_title3" name="i_title3_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br>'
 				);
-			};
+			}else {
+				alert("선택 항목은 5개를 넘을 수 없습니다.");
+			}
+		});
+		/* $("#question").on('click', '.fileremove', function(){
+			$(this).parent().parent().remove();
+		}); */
+		
+		$('#rsSubmit').click(function() {
+			var fmt2 = /^\s\s*$/;
+			if (fmt2.test(frm.rs_subject.value) || frm.rs_subject.value == "") {
+				alert("제목을 입력해 주세요.");
+				frm.rs_subject.value="";
+				frm.rs_subject.focus();
+				return false;
+			}
+			
+			if (frm.rs_start_date.value == "") {
+				alert("시작일을 선택해 주세요.");
+				return false;
+			}
+			
+			if (frm.rs_end_date.value == "") {
+				alert("종료일을 선택해 주세요.");
+				return false;
+			}
+			var divIndex_tot = $('#questionview div').length;
+			var divIndex = divIndex_tot/3;
+			for(i=0; i<divIndex; i++) {
+				var qsubject = $('#q_subject\\['+i+'\\]').val();
+				if (fmt2.test(qsubject) || qsubject == "") {
+					alert("질문을 입력해 주세요.");
+					$('#q_subject\\['+i+'\\]').val("");
+					$('#q_subject\\['+i+'\\]').focus();
+					return false;
+				}
+			}
+			return document.frm.submit();
 		});
 	});
 </script>
@@ -80,14 +143,14 @@
 			</div>
 		</div>
 		
-		<form action="researchEdit.do" name="frm" method="post">
+		<form action="researchEdit.do" name="frm" method="post" id="frmid">
 		<input type="hidden" name="rs_writer" value="${no}">
 		<input type="hidden" name="rs_no" value="${research.rs_no}">
 		<input type="hidden" name="q_no" value="${question.q_no}">		
 		<input type="hidden" name="pageNum" value="${pageNum}">
 		<div class="col-lg-9 col-md-offset-18">
 			<div class="panel panel-default panel-table" style="padding-top: 50px;">
-				<table class="tbl_type01" summary="설문조사" style="width:91.5%; margin-left: 36px;">
+				<table class="tbl_type01" id="tableid" summary="설문조사" style="width:91.5%; margin-left: 36px;">
 					<caption>설문조사</caption>
 					<colgroup>
 						<col width="15%" />
@@ -101,17 +164,17 @@
 						<tr>
 							<th>제목</th>
 							<td colspan="5" class="tl">
-								<input type="text" id="rs_subject" name="rs_subject" class="inp" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" autofocus="autofocus" />
+								<input type="text" id="rs_subject" name="rs_subject" class="inp" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" autofocus="autofocus" required="required" />
 							</td>
 						</tr>
 						<tr>
 							<th>시작일</th>
 							<td class="tl">
-								<input type="text" id="startDate" name="rs_start_date" style="width: 100px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" readonly="readonly" />
+								<input type="text" id="startDate" name="rs_start_date" style="width: 100px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" readonly="readonly" required="required" />
 							</td>
 							<th>종료일</th>
 							<td class="tl">
-								<input type="text" id="endDate" name="rs_end_date" style="width: 100px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" readonly="readonly" />
+								<input type="text" id="endDate" name="rs_end_date" style="width: 100px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" readonly="readonly" required="required" />
 							</td>
 							<th>결과확인</th>
 							<td class="tl">
@@ -123,7 +186,7 @@
 						<tr>
 							<th>문항수</th>
 							<td colspan="5" class="tl">
-								<select id="rs_que_cnt" name="rs_que_cnt" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; padding-right:15px; line-height:1;">
+								<select id="rs_que_cnt" name="rs_que_cnt" class="rs_que_cnt" style="-webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; padding-right:15px; line-height:1;">
 									<option value="1">1개</option>
 									<option value="2">2개</option>
 									<option value="3">3개</option>
@@ -139,14 +202,18 @@
 						</tr>
 						<tr>
 							<td colspan="6" id="questionview" class="tl">
-								<div id="question" class="research">
-									문항1. <input type="text" id="q_subject" name="q_subject_list[0]" class="inp" style="width:600px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" placeholder="질문을 입력해주세요." /><br><br>
-									① &nbsp;<input type="text" id="i_title1" name="i_title1_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
-									②  &nbsp;<input type="text" id="i_title2" name="i_title2_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
-									③ &nbsp;<input type="text" id="i_title3" name="i_title3_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
-									④  &nbsp;<input type="text" id="i_title4" name="i_title4_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
-									⑤  &nbsp;<input type="text" id="i_title5" name="i_title5_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" /><br>
-									선택사유: <input type="text" id="r_description" name="r_description" class="inp" style="width:400px; -webkit-box-shadow:none; height:21px; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; background-color: #EAEAEA;" readonly="readonly"/>
+								<div id="question_div" class="research">
+									<div id="question">
+										문항1. <input type="text" id="q_subject[0]" name="q_subject_list[0]" class="q_subject" style="width:600px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px;" required="required" placeholder="질문을 입력해 주세요." /><br><br>
+										① &nbsp;<input type="text" id="i_title1" name="i_title1_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br>
+										②  &nbsp;<input type="text" id="i_title2" name="i_title2_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" />&nbsp;<img src="images/sub/btn/btn_down.gif" alt="선택항목 추가" id="plusItem[0]" class="plusItem" /><br>
+										<!-- ③ &nbsp;<input type="text" id="i_title3" name="i_title3_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br>
+										④  &nbsp;<input type="text" id="i_title4" name="i_title4_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br>
+										⑤  &nbsp;<input type="text" id="i_title5" name="i_title5_list[0]" class="inp" style="width:300px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; margin-bottom: 5px;" required="required" /><br> -->
+									</div>
+									<div>
+										선택사유: <input type="text" id="r_description" name="r_description" class="inp" style="width:400px; -webkit-box-shadow:none; height:21px; box-shadow:none; font-size: 12px; border:solid 1px #c6c6c6; color:#666; padding:3px; background-color: #EAEAEA;" readonly="readonly"/>
+									</div>
 								</div>
 							</td>
 						</tr>
@@ -165,7 +232,7 @@
 								<span class="wte_l">
 									<a href="researchList.do" class="wte_r">목록</a>
 								</span>
-								<a href="javascript:document.frm.submit();" class="pre_r">확인</a>
+								<span class="pre_r" id="rsSubmit">확인</span>
 								<span class="wte_l" style="padding-left: 1px;">
 									<a href="javascript:history.go(-1);" class="wte_r" style="margin-right: 35px;">취소</a>
 								</span>

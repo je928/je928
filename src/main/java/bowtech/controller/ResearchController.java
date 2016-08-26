@@ -114,6 +114,45 @@ public class ResearchController {
 		return "module/main";
 	}
 	
+	@RequestMapping(value = "researchChoice")
+	public String choice(int rs_no, String pageNum, String searchType, String searchTxt, Model model, HttpSession session) {
+		if (searchType == null) {
+			searchType = "all";
+		}
+		if (searchTxt == null) {
+			searchTxt = "";
+		}
+		rs.researchHit(rs_no);
+		Research research = rs.researchSelect(rs_no);
+		// 태그 치환
+		String subject_replace = research.getRs_subject().replaceAll("<", "&lt;");
+		String subject_replace_finish = subject_replace.replaceAll(">", "&gt;");
+		research.setRs_subject(subject_replace_finish);
+		// 태그 치환 끝
+		
+		if (searchTxt != null) {
+			String subject_txt = research.getRs_subject().replaceAll(searchTxt, "<span class='subjecttxt'>"+searchTxt+"</span>");
+			research.setRs_subject(subject_txt);
+		}// 검색어 글자 색상 바꾸기
+		
+		research.setSearchType(searchType);
+		research.setSearchTxt(searchTxt);
+		if (research.getSearchType() != null) {
+			model.addAttribute("searchType", research.getSearchType());
+			model.addAttribute("searchTxt", research.getSearchTxt());
+		}
+		
+		int itemListTotal = rs.getitemTotal(rs_no);
+		List<ResearchItem> itemList = rs.itemSelect(rs_no);
+		
+		model.addAttribute("research", research);
+		model.addAttribute("itemListTotal", itemListTotal);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("pgm", "../research/researchChoice.jsp");
+		return "module/main";
+	}
+	
 	@RequestMapping(value = "researchEditForm")
 	public String editForm(Research research, ResearchQuestion question, String pageNum, Model model) {
 		research.setRs_no(0);
